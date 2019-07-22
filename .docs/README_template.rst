@@ -1,5 +1,5 @@
-lib_registry
-============
+lib_regexp
+==========
 
 .. include:: ./badges_without_jupyter.rst
 

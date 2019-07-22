@@ -1,5 +1,5 @@
-lib_registry
-============
+lib_regexp
+==========
 
 |Pypi Status| |license| |maintenance|
 
