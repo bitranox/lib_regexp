@@ -39,7 +39,7 @@ setup(
     long_description_content_type='text/x-rst',
     author='Robert Nowotny',
     author_email='rnowotny1966@gmail.com',
-    url='https://github.com/bitranox/lib_list',
+    url='https://github.com/bitranox/lib_regexp',
     packages=['lib_regexp'],
     install_requires=['pytest', 'typing'],
     classifiers=CLASSIFIERS,
