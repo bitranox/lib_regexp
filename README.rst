@@ -8,26 +8,26 @@ lib_registry
 .. |license| image:: https://img.shields.io/github/license/webcomics/pywine.svg
    :target: http://en.wikipedia.org/wiki/MIT_License
 .. |maintenance| image:: https://img.shields.io/maintenance/yes/2019.svg
-.. |Build Status| image:: https://travis-ci.org/bitranox/lib_list.svg?branch=master
-   :target: https://travis-ci.org/bitranox/lib_list
+.. |Build Status| image:: https://travis-ci.org/bitranox/lib_regexp.svg?branch=master
+   :target: https://travis-ci.org/bitranox/lib_regexp
 .. for the pypi status link note the dashes, not the underscore !
-.. |Pypi Status| image:: https://badge.fury.io/py/lib-list.svg
-   :target: https://badge.fury.io/py/lib_list
-.. |Codecov Status| image:: https://codecov.io/gh/bitranox/lib_list/branch/master/graph/badge.svg
-   :target: https://codecov.io/gh/bitranox/lib_list
-.. |Better Code| image:: https://bettercodehub.com/edge/badge/bitranox/lib_list?branch=master
-   :target: https://bettercodehub.com/results/bitranox/lib_list
-.. |snyk security| image:: https://snyk.io/test/github/bitranox/lib_list/badge.svg
-   :target: https://snyk.io/test/github/bitranox/lib_list
-.. |code climate| image:: https://api.codeclimate.com/v1/badges/64c43749ac6b4c52478d/maintainability
-   :target: https://codeclimate.com/github/bitranox/lib_list/maintainability
+.. |Pypi Status| image:: https://badge.fury.io/py/lib-regexp.svg
+   :target: https://badge.fury.io/py/lib_regexp
+.. |Codecov Status| image:: https://codecov.io/gh/bitranox/lib_regexp/branch/master/graph/badge.svg
+   :target: https://codecov.io/gh/bitranox/lib_regexp
+.. |Better Code| image:: https://bettercodehub.com/edge/badge/bitranox/lib_regexp?branch=master
+   :target: https://bettercodehub.com/results/bitranox/lib_regexp
+.. |snyk security| image:: https://snyk.io/test/github/bitranox/lib_regexp/badge.svg
+   :target: https://snyk.io/test/github/bitranox/lib_regexp
+.. |code climate| image:: https://api.codeclimate.com/v1/badges/d854dda63a0f89c04032/maintainability
+   :target: https://codeclimate.com/github/bitranox/lib_regexp/maintainability
    :alt: Maintainability
 
-some convenience functions for lists
+some convenience functions for regexp
 
 supports python 3.7 and possibly other dialects.
 
-`100% code coverage <https://codecov.io/gh/bitranox/lib_list>`_, mypy static type checking, tested under `Linux, OsX, Windows and Wine <https://travis-ci.org/bitranox/lib_list>`_, automatic daily builds  and monitoring
+`100% code coverage <https://codecov.io/gh/bitranox/lib_regexp>`_, mypy static type checking, tested under `Linux, OsX, Windows and Wine <https://travis-ci.org/bitranox/lib_regexp>`_, automatic daily builds  and monitoring
 
 ----
 
@@ -36,9 +36,9 @@ supports python 3.7 and possibly other dialects.
 - `Requirements`_
 - `Acknowledgements`_
 - `Contribute`_
-- `Report Issues <https://github.com/bitranox/lib_list/blob/master/ISSUE_TEMPLATE.md>`_
-- `Pull Request <https://github.com/bitranox/lib_list/blob/master/PULL_REQUEST_TEMPLATE.md>`_
-- `Code of Conduct <https://github.com/bitranox/lib_list/blob/master/CODE_OF_CONDUCT.md>`_
+- `Report Issues <https://github.com/bitranox/lib_regexp/blob/master/ISSUE_TEMPLATE.md>`_
+- `Pull Request <https://github.com/bitranox/lib_regexp/blob/master/PULL_REQUEST_TEMPLATE.md>`_
+- `Code of Conduct <https://github.com/bitranox/lib_regexp/blob/master/CODE_OF_CONDUCT.md>`_
 - `License`_
 - `Changelog`_
 
@@ -61,21 +61,21 @@ via pip latest Release:
 .. code-block:: bash
 
     # latest Release from pypi
-    pip install lib_list
+    pip install lib_regexp
 
     # test without installing
-    pip install lib_list --install-option test
+    pip install lib_regexp --install-option test
 
 via pip latest Development Version:
 
 .. code-block:: bash
 
     # upgrade all dependencies regardless of version number (PREFERRED)
-    pip install --upgrade https://github.com/bitranox/lib_list/archive/master.zip --upgrade-strategy eager
+    pip install --upgrade https://github.com/bitranox/lib_regexp/archive/master.zip --upgrade-strategy eager
     # normal install
-    pip install --upgrade https://github.com/bitranox/lib_list/archive/master.zip
+    pip install --upgrade https://github.com/bitranox/lib_regexp/archive/master.zip
     # test without installing
-    pip install https://github.com/bitranox/lib_list/archive/master.zip --install-option test
+    pip install https://github.com/bitranox/lib_regexp/archive/master.zip --install-option test
 
 via requirements.txt:
 
@@ -83,9 +83,9 @@ via requirements.txt:
 
     # Insert following line in Your requirements.txt:
     # for the latest Release:
-    lib_list
+    lib_regexp
     # for the latest Development Version :
-    https://github.com/bitranox/lib_list/archive/master.zip
+    https://github.com/bitranox/lib_regexp/archive/master.zip
 
     # to install and upgrade all modules mentioned in requirements.txt:
     pip install --upgrade -r /<path>/requirements.txt
@@ -95,10 +95,10 @@ via python:
 .. code-block:: python
 
     # for the latest Release
-    python -m pip install upgrade lib_list
+    python -m pip install upgrade lib_regexp
 
     # for the latest Development Version
-    python -m pip install upgrade https://github.com/bitranox/lib_list/archive/master.zip
+    python -m pip install upgrade https://github.com/bitranox/lib_regexp/archive/master.zip
 
 Basic Usage
 -----------
@@ -123,7 +123,7 @@ Contribute
 ----------
 
 I would love for you to fork and send me pull request for this project.
-- `please Contribute <https://github.com/bitranox/lib_list/blob/master/CONTRIBUTING.md>`_
+- `please Contribute <https://github.com/bitranox/lib_regexp/blob/master/CONTRIBUTING.md>`_
 
 License
 -------

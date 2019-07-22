@@ -16,7 +16,7 @@ else:
     from rst_include.libs import lib_log
 
 # CONSTANTS & PROJECT SPECIFIC FUNCTIONS
-codeclimate_link_hash = "64c43749ac6b4c52478d"
+codeclimate_link_hash = "d854dda63a0f89c04032"   # for lib_regexp
 
 
 def project_specific(repository_slug, repository, repository_dashed):
