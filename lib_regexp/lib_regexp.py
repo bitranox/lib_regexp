@@ -129,8 +129,8 @@ def test_regexp(s_input):
     """
 
     # bad‌​string  <-- ungültige (unsichtbare) unicode characters befinden in diesem string !!! diese sollen entfernt werden.
-    >>> test_regexp('bad‌​string^°!"§$%&/\\'()[]{}~€@öäüÖÄÜß+-*µ|><=?,;.:_ #²³©®¼½¾ª™øØ\\\\')
-    ('badstring^°!"§$%&/\\'()[]{}~€@öäüÖÄÜß+-*µ|><=?,;.:_ #²³©®¼½¾ª™øØ\\\\', ['\\u200c', '\\u200b'])
+    >>> test_regexp('check_this_string_for_bad_characters^°!"§$%&/\\'()[]{}~€@öäüÖÄÜß+-*µ|><=?,;.:_ #²³©®¼½¾ª™øØ\\\\')
+    ('check_this_string_for_bad_characters^°!"§$%&/\\'()[]{}~€@öäüÖÄÜß+-*µ|><=?,;.:_ #²³©®¼½¾ª™øØ\\\\', [])
 
     result = regexp_is_alphabetic_or_numeric.sub(input)
     return result
