@@ -33,7 +33,7 @@ if os.path.exists(readme_filename):
 
 setup(
     name='lib_regexp',
-    version='0.0.1',
+    version='1.0.0',
     description=description,
     long_description=long_description,
     long_description_content_type='text/x-rst',
