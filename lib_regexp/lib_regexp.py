@@ -1,4 +1,6 @@
+# STDLIB
 import re
+from typing import List
 
 
 class ClassRegexExecute(object):
@@ -123,6 +125,39 @@ regexp_check_chars_not_az09pointdash = ClassRegexExecute('[^a-z0-9.-]')        #
 # \s = Matches Unicode whitespace characters (which includes [ \t\n\r\f\v], and also many other characters, for example the non-breaking spaces mandated by typography rules in many languages
 # regexp_non_standard_unicode_characters = ClassRegexExecute(r'[^\w\s\^°!"§$%&/\'\(\)\[\]{}\~€@\+\-\*\|\=\?\>\<,;\.:#²³©®¼½¾ª™øØ\\]', flags=re.UNICODE)
 regexp_non_standard_unicode_characters = ClassRegexExecute(r'[^\w\s\^°!"§$%&/\'\(\)\[\]{}\~€@\+\-\*\|\=\?\>\<,;\.:#`²³©®¼½¾ª™øØ\\]', flags=re.UNICODE)
+
+
+def reg_grep(search: str, text: str) -> List[str]:
+    """
+    multiline grep
+
+    # https://www.guru99.com/python-regular-expressions-complete-tutorial.html#5
+
+    >>> assert reg_grep('a', 'this is a multiline\\nstring with some\\nmatching lines') == ['this is a multiline', 'matching lines']
+
+    """
+    # line = re.search(r"^.*HEAD.*$", result.stdout, re.MULTILINE)
+    l_results = re.findall(r"^.*{search}.*$".format(search=search), text, re.MULTILINE)
+    return l_results
+
+
+def reg_is_str_in_text(search: str, text: str) -> bool:
+    """
+    multiline regexp search
+
+    # https://www.guru99.com/python-regular-expressions-complete-tutorial.html#5
+
+    >>> assert reg_is_str_in_text('a', 'this is a multiline\\nstring with some\\nmatching lines') == True
+    >>> assert reg_is_str_in_text('matching', 'this is a multiline\\nstring with some\\nmatching lines') == True
+    >>> assert reg_is_str_in_text('z', 'this is a multiline\\nstring with some\\nmatching lines') == False
+
+    """
+    # line = re.search(r"^.*HEAD.*$", result.stdout, re.MULTILINE)
+    match_object = re.search(r"^.*{search}.*$".format(search=search), text, re.MULTILINE)
+    if match_object:
+        return True
+    else:
+        return False
 
 
 def test_regexp(s_input):
