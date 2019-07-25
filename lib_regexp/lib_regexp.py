@@ -127,21 +127,27 @@ regexp_check_chars_not_az09pointdash = ClassRegexExecute('[^a-z0-9.-]')        #
 regexp_non_standard_unicode_characters = ClassRegexExecute(r'[^\w\s\^°!"§$%&/\'\(\)\[\]{}\~€@\+\-\*\|\=\?\>\<,;\.:#`²³©®¼½¾ª™øØ\\]', flags=re.UNICODE)
 
 
-def reg_grep(search: str, text: str) -> List[str]:
+def reg_grep(pattern: str, text: str, pattern_regexp: bool = False) -> List[str]:
     """
     multiline grep
 
     # https://www.guru99.com/python-regular-expressions-complete-tutorial.html#5
 
     >>> assert reg_grep('a', 'this is a multiline\\nstring with some\\nmatching lines') == ['this is a multiline', 'matching lines']
+    >>> assert reg_grep(r'^.*a.*$', 'this is a multiline\\nstring with some\\nmatching lines', pattern_regexp=True) == ['this is a multiline', 'matching lines']
+
 
     """
-    # line = re.search(r"^.*HEAD.*$", result.stdout, re.MULTILINE)
-    l_results = re.findall(r"^.*{search}.*$".format(search=search), text, re.MULTILINE)
+    if pattern_regexp:
+        regexp_pattern = pattern
+    else:
+        regexp_pattern = r"^.*{pattern}.*$".format(pattern=pattern)
+
+    l_results = re.findall(regexp_pattern, text, re.MULTILINE)
     return l_results
 
 
-def reg_is_str_in_text(search: str, text: str) -> bool:
+def reg_is_str_in_text(pattern: str, text: str, pattern_regexp: bool = False) -> bool:
     """
     multiline regexp search
 
@@ -150,10 +156,19 @@ def reg_is_str_in_text(search: str, text: str) -> bool:
     >>> assert reg_is_str_in_text('a', 'this is a multiline\\nstring with some\\nmatching lines') == True
     >>> assert reg_is_str_in_text('matching', 'this is a multiline\\nstring with some\\nmatching lines') == True
     >>> assert reg_is_str_in_text('z', 'this is a multiline\\nstring with some\\nmatching lines') == False
+    >>> assert reg_is_str_in_text(r"^.*a.*$", 'this is a multiline\\nstring with some\\nmatching lines', pattern_regexp=True) == True
+    >>> assert reg_is_str_in_text(r"^.*matching.*$", 'this is a multiline\\nstring with some\\nmatching lines', pattern_regexp=True) == True
+    >>> assert reg_is_str_in_text(r"^.*z.*$", 'this is a multiline\\nstring with some\\nmatching lines', pattern_regexp=True) == False
 
     """
     # line = re.search(r"^.*HEAD.*$", result.stdout, re.MULTILINE)
-    match_object = re.search(r"^.*{search}.*$".format(search=search), text, re.MULTILINE)
+
+    if pattern_regexp:
+        regexp_pattern = pattern
+    else:
+        regexp_pattern = r"^.*{pattern}.*$".format(pattern=pattern)
+
+    match_object = re.search(regexp_pattern, text, re.MULTILINE)
     if match_object:
         return True
     else:
