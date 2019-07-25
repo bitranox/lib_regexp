@@ -1,6 +1,6 @@
 # STDLIB
 import re
-from typing import List
+from typing import List, Tuple, Union
 
 
 class ClassRegexExecute(object):
@@ -72,38 +72,40 @@ class ClassRegexExecute(object):
 
     """
 
-    def __init__(self, s_regexp=None, flags=0):
+    def __init__(self, s_regexp='', flags=0):
+        # type: (str, Union[int, re.RegexFlag]) -> None
+        # old  style type annotation because PEP8 E251 around flags: Union[int, re.RegexFlag] = 0
         if bool(s_regexp):
             self.my_regexp = re.compile(s_regexp, flags=flags)
         else:
             self.my_regexp = None
 
-    def set_s_regexp(self, s_regexp):
+    def set_s_regexp(self, s_regexp: str) -> None:
         self.my_regexp = re.compile(s_regexp)
 
-    def search(self, s_string):
+    def search(self, s_string: str):
         result = self.my_regexp.search(s_string)
         if result is None:
             return None, None
         else:
             return result.start(), result.group()
 
-    def match(self, s_string):
+    def match(self, s_string: str):
         result = self.my_regexp.match(s_string)
         if result is None:
             return None, None
         else:
             return result.start(), result.group()
 
-    def findall(self, s_string):
+    def findall(self, s_string: str):
         result = self.my_regexp.findall(s_string)
         return result
 
-    def replace(self, s_string):
+    def replace(self, s_string: str):
         result = self.my_regexp.replace(s_string)
         return result
 
-    def sub(self, replace_with, s_input, count=0):
+    def sub(self, replace_with: str, s_input: str, count: int = 0):
         result = self.my_regexp.sub(replace_with, s_input, count)
         return result
 
@@ -127,7 +129,10 @@ regexp_check_chars_not_az09pointdash = ClassRegexExecute('[^a-z0-9.-]')        #
 regexp_non_standard_unicode_characters = ClassRegexExecute(r'[^\w\s\^°!"§$%&/\'\(\)\[\]{}\~€@\+\-\*\|\=\?\>\<,;\.:#`²³©®¼½¾ª™øØ\\]', flags=re.UNICODE)
 
 
-def reg_grep(pattern: str, text: str, pattern_regexp: bool = False) -> List[str]:
+def reg_grep(pattern, text, flags=re.MULTILINE | re.UNICODE, pattern_regexp=False):
+    # type: (str, str, Union[int, re.RegexFlag], bool) -> List[str]
+    # old  style type annotation because PEP8 E251 around flags: Union[int, re.RegexFlag] = re.MULTILINE | re.UNICODE
+
     """
     multiline grep
 
@@ -143,11 +148,14 @@ def reg_grep(pattern: str, text: str, pattern_regexp: bool = False) -> List[str]
     else:
         regexp_pattern = r"^.*{pattern}.*$".format(pattern=pattern)
 
-    l_results = re.findall(regexp_pattern, text, re.MULTILINE)
+    l_results = re.findall(regexp_pattern, text, flags=flags)
     return l_results
 
 
-def reg_is_str_in_text(pattern: str, text: str, pattern_regexp: bool = False) -> bool:
+def reg_is_str_in_text(pattern, text, flags=re.MULTILINE | re.UNICODE, pattern_regexp=False):
+    # type: (str, str, Union[int, re.RegexFlag], bool) -> bool
+    # old  style type annotation because PEP8 E251 around flags: Union[int, re.RegexFlag] = re.MULTILINE | re.UNICODE
+
     """
     multiline regexp search
 
@@ -168,14 +176,14 @@ def reg_is_str_in_text(pattern: str, text: str, pattern_regexp: bool = False) ->
     else:
         regexp_pattern = r"^.*{pattern}.*$".format(pattern=pattern)
 
-    match_object = re.search(regexp_pattern, text, re.MULTILINE)
+    match_object = re.search(regexp_pattern, text, flags=flags)
     if match_object:
         return True
     else:
         return False
 
 
-def test_regexp(s_input):
+def test_regexp(s_input: str) -> Tuple[str, List[str]]:
     """
 
     # bad‌​string  <-- ungültige (unsichtbare) unicode characters befinden in diesem string !!! diese sollen entfernt werden.
