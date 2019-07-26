@@ -20,7 +20,7 @@ class ClassRegexExecute(object):
 
     s_regexp Beispiele :
     [^a-z0-9.-]                         : Suche Zeichen die NICHT (^) a-z. 0-9,.,- enthalten
-    \d                                  : Suche erste Ziffer
+    \\d                                  : Suche erste Ziffer
     (?:aaa|bbb)                         : Suche String aaa,bbb in Searchstring
 
                                           Bsp. s_regext aus einer Liste mit Strings erzeugen :
@@ -54,7 +54,7 @@ class ClassRegexExecute(object):
     (7, 'str1')
     >>> my_regexp.search('sadfkjhstrxkljhsadfstry')
     (None, None)
-    >>> s_regexp='(?:%s)' % '|'.join(['.jpg','.tif','\.bat'])
+    >>> s_regexp='(?:%s)' % '|'.join(['.jpg','.tif','\\.bat'])
     >>> my_regexp.set_s_regexp(s_regexp)
     >>> my_regexp.search('sadfkjhstr.jpgxkljhsadfstry')
     (10, '.jpg')
@@ -62,7 +62,7 @@ class ClassRegexExecute(object):
     (12, '.bat')
 
     >>> # erstes Vorkommen einer Ziffer finden
-    >>> my_regexp.set_s_regexp('\d')
+    >>> my_regexp.set_s_regexp('\\d')
     >>> my_regexp.search('sadfkjhstr1kljhsadfstr2')
     (10, '1')
     >>> my_regexp.search('bat1')
@@ -72,40 +72,31 @@ class ClassRegexExecute(object):
 
     """
 
-    def __init__(self, s_regexp='', flags=0):
-        # type: (str, Union[int, re.RegexFlag]) -> None
-        # old  style type annotation because PEP8 E251 around flags: Union[int, re.RegexFlag] = 0
-        if bool(s_regexp):
-            self.my_regexp = re.compile(s_regexp, flags=flags)
-        else:
-            self.my_regexp = None
+    def __init__(self, s_regexp: str = '', flags: Union[int, re.RegexFlag] = 0) -> None:
+        self.my_regexp = re.compile(s_regexp, flags=flags)
 
     def set_s_regexp(self, s_regexp: str) -> None:
         self.my_regexp = re.compile(s_regexp)
 
-    def search(self, s_string: str):
+    def search(self, s_string: str):   # type:ignore
         result = self.my_regexp.search(s_string)
         if result is None:
             return None, None
         else:
             return result.start(), result.group()
 
-    def match(self, s_string: str):
+    def match(self, s_string: str):   # type:ignore
         result = self.my_regexp.match(s_string)
         if result is None:
             return None, None
         else:
             return result.start(), result.group()
 
-    def findall(self, s_string: str):
+    def findall(self, s_string: str):   # type:ignore
         result = self.my_regexp.findall(s_string)
         return result
 
-    def replace(self, s_string: str):
-        result = self.my_regexp.replace(s_string)
-        return result
-
-    def sub(self, replace_with: str, s_input: str, count: int = 0):
+    def sub(self, replace_with: str, s_input: str, count: int = 0):   # type:ignore
         result = self.my_regexp.sub(replace_with, s_input, count)
         return result
 
@@ -113,7 +104,7 @@ class ClassRegexExecute(object):
 # VORDEFINIERTE REGEXP SUCHEN
 
 # erstes Vorkommen einer Ziffer finden
-regexp_ziffernsuche = ClassRegexExecute('\d')                                  # Ziffernsuche Instanz erzeugen, damit ist die Suche vorkompiliert
+regexp_ziffernsuche = ClassRegexExecute(r'\d')                                  # Ziffernsuche Instanz erzeugen, damit ist die Suche vorkompiliert
 
 # Character finden a-z (case sensitive)
 regexp_check_chars_az = ClassRegexExecute('[a-z]')                             # Instanz erzeugen, damit ist die Suche vorkompiliert
@@ -123,8 +114,9 @@ regexp_check_chars_azAZ = ClassRegexExecute('[a-zA-Z]')                        #
 regexp_check_chars_not_az09pointdash = ClassRegexExecute('[^a-z0-9.-]')        # Instanz erzeugen, damit ist die Suche vorkompiliert
 
 # ^ = NOT
-# \w = Matches Unicode word characters; this includes most characters that can be part of a word in any language, as well as numbers and the underscore
-# \s = Matches Unicode whitespace characters (which includes [ \t\n\r\f\v], and also many other characters, for example the non-breaking spaces mandated by typography rules in many languages
+# \\w = Matches Unicode word characters; this includes most characters that can be part of a word in any language, as well as numbers and the underscore
+# \s = Matches Unicode whitespace characters (which includes [ \t\n\r\f\v], and also many other characters,
+# for example the non-breaking spaces mandated by typography rules in many languages
 # regexp_non_standard_unicode_characters = ClassRegexExecute(r'[^\w\s\^°!"§$%&/\'\(\)\[\]{}\~€@\+\-\*\|\=\?\>\<,;\.:#²³©®¼½¾ª™øØ\\]', flags=re.UNICODE)
 regexp_non_standard_unicode_characters = ClassRegexExecute(r'[^\w\s\^°!"§$%&/\'\(\)\[\]{}\~€@\+\-\*\|\=\?\>\<,;\.:#`²³©®¼½¾ª™øØ\\]', flags=re.UNICODE)
 
@@ -139,7 +131,8 @@ def reg_grep(pattern, text, flags=re.MULTILINE | re.UNICODE, pattern_is_regexp=F
     # https://www.guru99.com/python-regular-expressions-complete-tutorial.html#5
 
     >>> assert reg_grep('a', 'this is a multiline\\nstring with some\\nmatching lines') == ['this is a multiline', 'matching lines']
-    >>> assert reg_grep(r'^.*a.*$', 'this is a multiline\\nstring with some\\nmatching lines', pattern_is_regexp=True) == ['this is a multiline', 'matching lines']
+    >>> assert reg_grep(r'^.*a.*$', 'this is a multiline\\nstring with some\\nmatching lines', pattern_is_regexp=True) ==\
+            ['this is a multiline', 'matching lines']
 
 
     """
