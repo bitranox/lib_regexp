@@ -65,17 +65,6 @@ matrix:
     - os: linux
       language: python
       python: 'pypy3'
-      before_install:
-        - ${CMDPREFIX} ${python_command} -m pip install --upgrade pip
-        - ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/PyCQA/pycodestyle.git
-        - ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/python/mypy.git
-        - ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/codecov/codecov-python.git
-        - ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/pytest-dev/pytest.git
-        - ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/henry0312/pytest-codestyle.git
-        - ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/pytest-dev/pytest-cov.git
-        - ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/dbader/pytest-mypy.git
-        - ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/pytest-dev/pytest-runner.git
-
 
     - os: linux
       language: python
