@@ -39,6 +39,7 @@ if os.path.exists(readme_filename):
         pass
 
 install_requirements_when_using_setup_py()
+import pytest
 
 setup(name='lib_regexp',
       version='0.0.1',
