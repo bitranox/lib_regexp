@@ -15,6 +15,6 @@ def pytest_cmdline_preparse(args):
         args[:] = ["-n", str(num)] + args
     """
 
-    # add mypy option if not pypy
+    # add mypy option if not pypy - so mypy will be called with setup.py install test
     if platform.python_implementation() != "PyPy":
         args[:] = ["--mypy"] + args
