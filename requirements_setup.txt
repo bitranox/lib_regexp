@@ -7,8 +7,8 @@ pytest-codestyle                                        # git+https://github.com
 pytest-cov                                              # git+https://github.com/pytest-dev/pytest-cov.git
 pytest-mypy ; platform_python_implementation != "PyPy"  # pytest-mypy @ git+https://github.com/dbader/pytest-mypy.git ; platform_python_implementation != "PyPy"
 pytest-runner                                           # git+https://github.com/pytest-dev/pytest-runner.git
-pytest-xdist                                            # git+https://github.com/pytest-dev/pytest-xdist.git    # run tests parallel
+# pytest-xdist                                          # git+https://github.com/pytest-dev/pytest-xdist.git    # run tests parallel
 
 
 # clean :
-# sudo pip uninstall mypy pycodestyle codecov pytest pytest-codestyle pytest-cov pytest-mypy pytest-runner pytest-xdist
+# sudo pip uninstall mypy pycodestyle codecov pytest pytest-codestyle pytest-cov pytest-mypy pytest-runner pytest-xdist pytest-forked
