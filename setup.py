@@ -50,6 +50,7 @@ setup(name='lib_regexp',
       url='https://github.com/bitranox/lib_regexp',
       packages=['lib_regexp'],
       classifiers=CLASSIFIERS,
-      install_requires=['pytest'],
-      setup_requires=['pytest-runner'],
-      tests_require=['pytest'])
+      # install_requires=['pytest'],
+      # setup_requires=['pytest-runner'],
+      # tests_require=['pytest'])
+      )
