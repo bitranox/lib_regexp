@@ -6,7 +6,7 @@ import sys
 
 
 def install_requirements_when_using_setup_py():
-    subprocess.call([sys.executable, "-m", "pip", "install", '--upgrade', '-r', './requirements_setup.txt'])
+    subprocess.call([sys.executable, "-m", "pip", "install", '-r', './requirements_setup.txt'])
 
 
 try:
@@ -39,7 +39,6 @@ if os.path.exists(readme_filename):
         pass
 
 install_requirements_when_using_setup_py()
-import pytest
 
 setup(name='lib_regexp',
       version='0.0.1',
@@ -52,6 +51,6 @@ setup(name='lib_regexp',
       packages=['lib_regexp'],
       classifiers=CLASSIFIERS,
       install_requires=[],
-      setup_requires=[],
-      tests_require=[]
+      setup_requires=['pytest'],
+      tests_require=['pytest']
       )
