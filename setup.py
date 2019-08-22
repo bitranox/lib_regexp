@@ -1,6 +1,13 @@
 """Setuptools entry point."""
 import codecs
 import os
+import subprocess
+import sys
+
+
+def install_requirements_when_using_setup_py():
+    subprocess.call([sys.executable, "-m", "pip", "install", '-r', './requirements.txt'])
+
 
 try:
     from setuptools import setup
@@ -31,17 +38,19 @@ if os.path.exists(readme_filename):
     except Exception:
         pass
 
-setup(
-    name='lib_regexp',
-    version='0.0.1',
-    description=description,
-    long_description=long_description,
-    long_description_content_type='text/x-rst',
-    author='Robert Nowotny',
-    author_email='rnowotny1966@gmail.com',
-    url='https://github.com/bitranox/lib_regexp',
-    packages=['lib_regexp'],
-    install_requires=['pytest', 'typing'],
-    classifiers=CLASSIFIERS,
-    setup_requires=['pytest-runner'],
-    tests_require=['pytest'])
+install_requirements_when_using_setup_py()
+
+setup(name='lib_regexp',
+      version='0.0.1',
+      description=description,
+      long_description=long_description,
+      long_description_content_type='text/x-rst',
+      author='Robert Nowotny',
+      author_email='rnowotny1966@gmail.com',
+      url='https://github.com/bitranox/lib_regexp',
+      packages=['lib_regexp'],
+      classifiers=CLASSIFIERS,
+      # install_requires=['pytest'],
+      # setup_requires=['pytest-runner'],
+      # tests_require=['pytest'])
+      )
