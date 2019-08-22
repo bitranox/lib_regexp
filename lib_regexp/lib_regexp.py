@@ -176,11 +176,11 @@ def reg_is_str_in_text(pattern, text, flags=re.MULTILINE | re.UNICODE, pattern_i
         return False
 
 
-def test_regexp(s_input: str) -> Tuple[str, List[str]]:
+def t_e_s_t_regexp(s_input: str) -> Tuple[str, List[str]]:
     """
 
     # bad‌​string  <-- ungültige (unsichtbare) unicode characters befinden in diesem string !!! diese sollen entfernt werden.
-    >>> test_regexp('check_this_string_for_bad_characters^°!"§$%&/\\'()[]{}~€@öäüÖÄÜß+-*µ|><=?,;.:_ #²³©®¼½¾ª™øØ\\\\')
+    >>> t_e_s_t_regexp('check_this_string_for_bad_characters^°!"§$%&/\\'()[]{}~€@öäüÖÄÜß+-*µ|><=?,;.:_ #²³©®¼½¾ª™øØ\\\\')
     ('check_this_string_for_bad_characters^°!"§$%&/\\'()[]{}~€@öäüÖÄÜß+-*µ|><=?,;.:_ #²³©®¼½¾ª™øØ\\\\', [])
 
     result = regexp_is_alphabetic_or_numeric.sub(input)
