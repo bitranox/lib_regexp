@@ -223,12 +223,12 @@ install:
     - ${lib_bash_banner} "upgrading pip"
 
     - ${CMDPREFIX} ${python_command} -m pip install --upgrade pip
-    - if [[ ${mypy_static_typecheck} == "True" ]]; then ${lib_bash_banner} "install mypy" && ${CMDPREFIX} ${pip_command} install git+https://github.com/python/mypy.git; fi
+    # - if [[ ${mypy_static_typecheck} == "True" ]]; then ${lib_bash_banner} "install mypy" && ${CMDPREFIX} ${pip_command} install git+https://github.com/python/mypy.git; fi
     - if [[ ${build_docs} == "True" ]]; then ${lib_bash_banner} "install rst_include (Building Docs)" && ${CMDPREFIX} ${pip_command} install rst_include; fi
-    - ${lib_bash_banner} "install codecov" && ${CMDPREFIX} ${pip_command} install codecov
+    # - ${lib_bash_banner} "install codecov" && ${CMDPREFIX} ${pip_command} install codecov
     # - ${lib_bash_banner} "install pytest" && ${CMDPREFIX} ${pip_command} install pytest git+https://github.com/PyCQA/pycodestyle.git git+https://github.com/henry0312/pytest-codestyle.git pytest-cov
-    - ${lib_bash_banner} "install pytest" && ${CMDPREFIX} ${pip_command} install git+https://github.com/pytest-dev/pytest.git git+https://github.com/PyCQA/pycodestyle.git git+https://github.com/henry0312/pytest-codestyle.git pytest-cov
-    - ${lib_bash_banner} "install dill" && ${CMDPREFIX} ${pip_command} install dill
+    # - ${lib_bash_banner} "install pytest" && ${CMDPREFIX} ${pip_command} install git+https://github.com/pytest-dev/pytest.git git+https://github.com/PyCQA/pycodestyle.git git+https://github.com/henry0312/pytest-codestyle.git pytest-cov
+    # - ${lib_bash_banner} "install dill" && ${CMDPREFIX} ${pip_command} install dill
     - if [[ -f ./setup.py ]]; then ${lib_bash_banner} "setup.py found" ; else ${lib_bash_banner_warning} "no setup.py found, nothing to test" ; fi
     - if [[ -f ./setup.py ]]; then ${lib_bash_banner} "Installing Application" && ${CMDPREFIX} ${pip_command} install -e . ; fi
 
