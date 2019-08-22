@@ -66,6 +66,7 @@ matrix:
       language: python
       python: 'pypy3'
       before_install:
+        - ${CMDPREFIX} ${python_command} -m pip install --upgrade pip
         - ${lib_bash_banner} "install pycodestyle" && ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/PyCQA/pycodestyle.git
         - ${lib_bash_banner} "install mypy" && ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/python/mypy.git
         - ${lib_bash_banner} "install codecov" && ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/codecov/codecov-python.git
