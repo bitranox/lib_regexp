@@ -1,3 +1,4 @@
+import platform
 import sys
 
 # collect_ignore = ['build_docs.py', 'setup.py', 'dist.py']
@@ -11,3 +12,7 @@ def pytest_load_initial_conftests(args):
 
         num = max(multiprocessing.cpu_count() / 2, 1)
         args[:] = ["-n", str(num)] + args
+
+    # add mypy option if not pypy
+    if platform.python_implementation() != "PyPy":
+        args[:] = ["--mypy"] + args
