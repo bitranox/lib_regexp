@@ -1,5 +1,6 @@
 pytest
-pytest-codestyle
+git+https://github.com/PyCQA/pycodestyle.git
+git+https://github.com/henry0312/pytest-codestyle.git
 pytest-cov
 pytest-mypy
 pytest-runner
