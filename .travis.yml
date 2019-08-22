@@ -67,14 +67,14 @@ matrix:
       python: 'pypy3'
       before_install:
         - ${CMDPREFIX} ${python_command} -m pip install --upgrade pip
-        - ${lib_bash_banner} "install pycodestyle" && ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/PyCQA/pycodestyle.git
-        - ${lib_bash_banner} "install mypy" && ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/python/mypy.git
-        - ${lib_bash_banner} "install codecov" && ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/codecov/codecov-python.git
-        - ${lib_bash_banner} "install pytest" && ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/pytest-dev/pytest.git
-        - ${lib_bash_banner} "install pytest-codestyle" && ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/henry0312/pytest-codestyle.git
-        - ${lib_bash_banner} "install pytest-cov" && ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/pytest-dev/pytest-cov.git
-        - ${lib_bash_banner} "install pytest-mypy" && ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/dbader/pytest-mypy.git
-        - ${lib_bash_banner} "install pytest-runner" && ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/pytest-dev/pytest-runner.git
+        - ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/PyCQA/pycodestyle.git
+        - ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/python/mypy.git
+        - ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/codecov/codecov-python.git
+        - ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/pytest-dev/pytest.git
+        - ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/henry0312/pytest-codestyle.git
+        - ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/pytest-dev/pytest-cov.git
+        - ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/dbader/pytest-mypy.git
+        - ${CMDPREFIX} ${pip_command} install --upgrade git+https://github.com/pytest-dev/pytest-runner.git
 
 
     - os: linux
