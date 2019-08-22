@@ -5,7 +5,7 @@ import sys
 collect_ignore = ['build_docs.py']
 
 
-def pytest_load_initial_conftests(args):
+def pytest_cmdline_preparse(args):
     # run tests on multiple processes if pytest-xdist plugin is available
     if "xdist" in sys.modules:  # pytest-xdist plugin
         import multiprocessing
