@@ -1,4 +1,5 @@
 pytest
 pytest-codestyle
+pytest-cov
 pytest-mypy
 pytest-runner
