@@ -178,7 +178,7 @@ def reg_is_str_in_text(pattern, text, flags=re.MULTILINE | re.UNICODE, pattern_i
 
 def t_e_s_t_regexp(s_input: str) -> Tuple[str, List[str]]:
     """
-
+    # named t_e_s_t_regexp that pytest does not automatically discover it as a fixture
     # bad‌​string  <-- ungültige (unsichtbare) unicode characters befinden in diesem string !!! diese sollen entfernt werden.
     >>> t_e_s_t_regexp('check_this_string_for_bad_characters^°!"§$%&/\\'()[]{}~€@öäüÖÄÜß+-*µ|><=?,;.:_ #²³©®¼½¾ª™øØ\\\\')
     ('check_this_string_for_bad_characters^°!"§$%&/\\'()[]{}~€@öäüÖÄÜß+-*µ|><=?,;.:_ #²³©®¼½¾ª™øØ\\\\', [])
