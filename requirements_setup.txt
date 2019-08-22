@@ -1,11 +1,11 @@
 git+https://github.com/PyCQA/pycodestyle.git
 mypy @ git+https://github.com/python/mypy.git ; platform_python_implementation != "PyPy"
-git+https://github.com/codecov/codecov-python.git
+codecov                                                 # git+https://github.com/codecov/codecov-python.git
 
-pytest
+pytest                                                  # git+https://github.com/pytest-dev/pytest.git
 git+https://github.com/henry0312/pytest-codestyle.git
-git+https://github.com/pytest-dev/pytest-cov.git
-pytest-mypy @ git+https://github.com/dbader/pytest-mypy.git ; platform_python_implementation != "PyPy"
-git+https://github.com/pytest-dev/pytest-runner.git
-git+https://github.com/pytest-dev/pytest-xdist.git
+pytest-cov                                              # git+https://github.com/pytest-dev/pytest-cov.git
+pytest-mypy ; platform_python_implementation != "PyPy"  # pytest-mypy @ git+https://github.com/dbader/pytest-mypy.git ; platform_python_implementation != "PyPy"
+pytest-runner                                           # git+https://github.com/pytest-dev/pytest-runner.git
+pytest-xdist                                            # git+https://github.com/pytest-dev/pytest-xdist.git    # run tests parallel
 
