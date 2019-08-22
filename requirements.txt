@@ -1,4 +1,7 @@
 pytest
 pytest-runner
+git+https://github.com/henry0312/pytest-codestyle.git
+pytest-codestyle
+
 # pytest                # see : https://github.com/pytest-dev/pytest
 # typing              # see : https://pypi.org/project/typing/
