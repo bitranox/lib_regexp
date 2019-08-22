@@ -121,8 +121,8 @@ regexp_check_chars_not_az09pointdash = ClassRegexExecute('[^a-z0-9.-]')        #
 regexp_non_standard_unicode_characters = ClassRegexExecute(r'[^\w\s\^°!"§$%&/\'\(\)\[\]{}\~€@\+\-\*\|\=\?\>\<,;\.:#`²³©®¼½¾ª™øØ\\]', flags=re.UNICODE)
 
 
-def reg_grep(pattern, text, flags=re.MULTILINE | re.UNICODE, pattern_is_regexp=False):
-    # type: (str, str, Union[int, re.RegexFlag], bool) -> List[str]
+def reg_grep(pattern, text, pattern_is_regexp=False, flags=re.MULTILINE | re.UNICODE):
+    # type: (str, str, bool, Union[int, re.RegexFlag]) -> List[str]
     # old  style type annotation because PEP8 E251 around flags: Union[int, re.RegexFlag] = re.MULTILINE | re.UNICODE
 
     """
@@ -133,7 +133,6 @@ def reg_grep(pattern, text, flags=re.MULTILINE | re.UNICODE, pattern_is_regexp=F
     >>> assert reg_grep('a', 'this is a multiline\\nstring with some\\nmatching lines') == ['this is a multiline', 'matching lines']
     >>> assert reg_grep(r'^.*a.*$', 'this is a multiline\\nstring with some\\nmatching lines', pattern_is_regexp=True) ==\
             ['this is a multiline', 'matching lines']
-
 
     """
     if pattern_is_regexp:

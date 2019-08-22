@@ -1,6 +1,6 @@
 import platform
 
-collect_ignore = ['build_docs.py']
+collect_ignore = ['build_docs.py', '__main__.py']
 
 
 def pytest_cmdline_preparse(args):
