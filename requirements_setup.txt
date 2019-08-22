@@ -1,5 +1,5 @@
-git+https://github.com/PyCQA/pycodestyle.git
 mypy @ git+https://github.com/python/mypy.git ; platform_python_implementation != "PyPy"
+git+https://github.com/PyCQA/pycodestyle.git
 git+https://github.com/codecov/codecov-python.git
 
 pytest                                                  # git+https://github.com/pytest-dev/pytest.git
