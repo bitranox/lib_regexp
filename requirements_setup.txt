@@ -7,3 +7,5 @@ git+https://github.com/henry0312/pytest-codestyle.git
 git+https://github.com/pytest-dev/pytest-cov.git
 pytest-mypy @ git+https://github.com/dbader/pytest-mypy.git ; platform_python_implementation != "PyPy"
 git+https://github.com/pytest-dev/pytest-runner.git
+git+https://github.com/pytest-dev/pytest-xdist.git
+
