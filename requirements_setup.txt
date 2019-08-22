@@ -2,7 +2,7 @@ mypy @ git+https://github.com/python/mypy.git ; platform_python_implementation !
 git+https://github.com/PyCQA/pycodestyle.git            # git+https://github.com/PyCQA/pycodestyle.git
 git+https://github.com/codecov/codecov-python.git       # git+https://github.com/codecov/codecov-python.git
 
-git+https://github.com/pytest-dev/pytest.git            # git+https://github.com/pytest-dev/pytest.git
+pytest                                                  # git+https://github.com/pytest-dev/pytest.git
 git+https://github.com/henry0312/pytest-codestyle.git   # git+https://github.com/henry0312/pytest-codestyle.git
 git+https://github.com/pytest-dev/pytest-cov.git        # git+https://github.com/pytest-dev/pytest-cov.git
 pytest-mypy @ git+https://github.com/dbader/pytest-mypy.git ; platform_python_implementation != "PyPy"  # pytest-mypy ; platform_python_implementation != "PyPy"

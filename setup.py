@@ -51,6 +51,6 @@ setup(name='lib_regexp',
       packages=['lib_regexp'],
       classifiers=CLASSIFIERS,
       install_requires=[],
-      setup_requires=['pytest'],
+      setup_requires=['pytest-runner'],
       tests_require=['pytest']
       )
