@@ -1,6 +1,6 @@
 language: python
 group: travis_latest
-dist: bionic
+dist: xenial
 sudo: true
 
 env:
@@ -66,15 +66,9 @@ matrix:
       language: python
       python: '3.8-dev'
 
-    # works on xenial
     - os: linux
       language: python
       python: 'pypy3'
-
-    # not work on bionic
-    # - os: linux
-    #   language: python
-    #   python: 'pypy3.5-6.0'
 
     - os: linux
       language: python
