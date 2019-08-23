@@ -67,14 +67,14 @@ matrix:
       python: '3.8-dev'
 
     # works on xenial
-    # - os: linux
-    #   language: python
-    #   python: 'pypy3'
-
-    # works on bionic
     - os: linux
       language: python
-      python: 'pypy3.5-6.0'
+      python: 'pypy3'
+
+    # not work on bionic
+    # - os: linux
+    #   language: python
+    #   python: 'pypy3.5-6.0'
 
     - os: linux
       language: python
