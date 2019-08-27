@@ -245,8 +245,8 @@ install:
 
 script:
     - if [[ -f ./setup.py ]]; then
-          ${lib_bash_banner} "running pip install with --install-option test";
-          ${CMDPREFIX} ${pip_command} install ${github_master} --upgrade --install-option test;
+          ${lib_bash_banner} "running setup.py test";
+          ${CMDPREFIX} ${python_command} ./setup.py test;
 
           ${lib_bash_banner} "running pip install";
           ${CMDPREFIX} ${pip_command} install ${github_master} --upgrade;
