@@ -48,7 +48,7 @@ if os.path.exists(readme_filename):
     except Exception:
         pass
 
-install_requirements_when_using_setup_py()
+# install_requirements_when_using_setup_py()
 
 setup(name='lib_regexp',
       version='0.0.1',
@@ -62,5 +62,5 @@ setup(name='lib_regexp',
       classifiers=CLASSIFIERS,
       install_requires=[],
       setup_requires=['pytest-runner'],
-      tests_require=['pytest']
+      tests_require=['mypy', 'pytest', 'pytest-pep8', 'pytest-codestyle', 'pytest-mypy']
       )
