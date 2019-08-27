@@ -290,22 +290,23 @@ script:
     # Bild Docs
     - if [[ -f build_docs.py ]] && [[ "${build_docs}" == "True" ]]; then
           ${lib_bash_banner} "Building Docs";
-          ${CMDPREFIX} ${python_command} build_docs.py ${TRAVIS_REPO_SLUG};
+          ${CMDPREFIX} ${python_command} build_docs.py ${TRAVIS_REPO_SLUG} \
+          && ${lib_bash_banner} "Building Docs OK" \
+          || ${lib_bash_banner_warning} "Building Docs FAILED";
       else
           ${lib_bash_banner_warning} "Building Docs disabled on this build";
       fi
 
     # Check if Deployment would work on non-tagged builds
     - if [[ -f setup.py ]] && [[ -z ${TRAVIS_TAG} ]] && [[ -f build_docs.py ]] && [[ ${build_docs} == "True" ]]; then
-          ${lib_bash_banner} "Check if PyPi Deployment would work";
+          ${lib_bash_banner} "Testing PyPi Deployment";
           ${CMDPREFIX} ${pip_command} install readme_renderer > /dev/null 2>&1;
           ${CMDPREFIX} ${pip_command} install --upgrade twine > /dev/null 2>&1;
           ${CMDPREFIX} ${pip_command} install wheel > /dev/null 2>&1;
           ${CMDPREFIX} ${python_command} setup.py sdist bdist_wheel || ${lib_bash_banner_warning} "Building Wheels failed" 1>&2;
-          ${lib_bash_banner} "Testing PyPi Deployment";
           ${CMDPREFIX} twine check dist/* && export pypi_deploy_would_pass="True" || export pypi_deploy_would_pass="False";
           if [[ ${pypi_deploy_would_pass} == "True" ]]; then
-              ${lib_bash_color} clr_bold clr_green "PyPi Deployment would be OK";
+              ${lib_bash_banner} "PyPi Deployment would be OK";
           else
               ${lib_bash_banner_warning} "PyPi Deployment would fail";
               exit 1;
