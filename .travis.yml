@@ -290,11 +290,15 @@ script:
     # Bild Docs
     - if [[ -f build_docs.py ]] && [[ "${build_docs}" == "True" ]]; then
           ${lib_bash_banner} "Building Docs";
-          ${CMDPREFIX} ${python_command} build_docs.py ${TRAVIS_REPO_SLUG} \
-          && ${lib_bash_banner} "Building Docs OK" \
-          || ${lib_bash_banner_warning} "Building Docs FAILED";
+          ${CMDPREFIX} ${python_command} build_docs.py ${TRAVIS_REPO_SLUG} && export build_docs_pass="True" || export build_docs_pass="False";
+          if [[ ${pypi_deploy_would_pass} == "True" ]]; then
+              ${lib_bash_banner} "Building Docs OK";
+          else
+              ${lib_bash_banner_warning} "Building Docs FAILED";
+              exit 1;
+          fi
       else
-          ${lib_bash_banner_warning} "Building Docs disabled on this build";
+          ${lib_bash_banner_warning} "Building Docs disabled on this build" ;
       fi
 
     # Check if Deployment would work on non-tagged builds
@@ -314,7 +318,6 @@ script:
       else
           ${lib_bash_banner_warning} "Check PyPi Deployment disabled on this build" ;
       fi
-
 
 after_success:
     - ${CMDPREFIX} coverage report
