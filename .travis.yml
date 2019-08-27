@@ -294,7 +294,6 @@ script:
     - if [[ -f setup.py ]] && [[ -z ${TRAVIS_TAG} ]] && [[ -f build_docs.py ]] && [[ ${build_docs} == "True" ]]; then export check_build="True" ; fi
     - if [[ ${check_build} == "True" ]]; then
           ${lib_bash_banner} "Building Wheels";
-          # to check if long_description (Readme) can be rendered, otherwise PyPi will not accept it;
           ${CMDPREFIX} ${pip_command} install readme_renderer > /dev/null 2>&1;
           ${CMDPREFIX} ${pip_command} install --upgrade twine > /dev/null 2>&1;
           ${CMDPREFIX} ${pip_command} install wheel > /dev/null 2>&1;
