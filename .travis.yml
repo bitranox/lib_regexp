@@ -231,6 +231,18 @@ install:
 
     - ${lib_bash_banner} "upgrading pip"; ${CMDPREFIX} ${python_command} -m pip install --upgrade pip
 
+    - if [[ ${build_docs} == "True" ]]; then
+          ${lib_bash_banner} "install rst_include (Building Docs)";
+          ${CMDPREFIX} ${pip_command} install rst_include;
+      fi
+
+    - if [[ -f ./setup.py ]]; then
+          ${lib_bash_banner} "setup.py found, Installing Application";
+          ${CMDPREFIX} ${pip_command} install -e . ;
+      else
+          ${lib_bash_banner_warning} "no setup.py found, skipping Installation";
+      fi
+
 script:
     - if [[ -f build_docs.py ]] && [[ "${build_docs}" == "True" ]]; then ${lib_bash_banner} "Building Docs" && ${CMDPREFIX} ${python_command} build_docs.py ${TRAVIS_REPO_SLUG}; else ${lib_bash_banner_warning} "Building Docs disabled on this build" ;  fi
 
