@@ -287,12 +287,17 @@ script:
           ${lib_bash_banner_warning} "no setup.py found, skipping static typechecking";
       fi
 
-    - if [[ -f build_docs.py ]] && [[ "${build_docs}" == "True" ]]; then ${lib_bash_banner} "Building Docs" && ${CMDPREFIX} ${python_command} build_docs.py ${TRAVIS_REPO_SLUG}; else ${lib_bash_banner_warning} "Building Docs disabled on this build" ;  fi
+    # Bild Docs
+    - if [[ -f build_docs.py ]] && [[ "${build_docs}" == "True" ]]; then
+          ${lib_bash_banner} "Building Docs";
+          ${CMDPREFIX} ${python_command} build_docs.py ${TRAVIS_REPO_SLUG};
+      else
+          ${lib_bash_banner_warning} "Building Docs disabled on this build";
+      fi
 
-    # only for non tagged builds if doctest is enabled, to check before we deploy on pypi
-    - if [[ -f setup.py ]] && [[ -z ${TRAVIS_TAG} ]] && [[ -f build_docs.py ]] && [[ ${build_docs} == "True" ]]; then export check_build="True" ; fi
-    - if [[ ${check_build} == "True" ]]; then
-          ${lib_bash_banner} "Building Wheels";
+    # Check if Deployment would work on non-tagged builds
+    - if [[ -f setup.py ]] && [[ -z ${TRAVIS_TAG} ]] && [[ -f build_docs.py ]] && [[ ${build_docs} == "True" ]]; then
+          ${lib_bash_banner} "Check if PyPi Deployment would work";
           ${CMDPREFIX} ${pip_command} install readme_renderer > /dev/null 2>&1;
           ${CMDPREFIX} ${pip_command} install --upgrade twine > /dev/null 2>&1;
           ${CMDPREFIX} ${pip_command} install wheel > /dev/null 2>&1;
@@ -306,7 +311,7 @@ script:
               exit 1;
           fi
       else
-          ${lib_bash_banner_warning} "Building Wheels disabled on this build" ;
+          ${lib_bash_banner_warning} "Check PyPi Deployment disabled on this build" ;
       fi
 
 
@@ -322,13 +327,14 @@ after_success:
     # env:
     #   global:
     #     -secure: *******
-    - if [[ ${deploy_on_pypi} == "True" ]] && [[ -n ${TRAVIS_TAG} ]]; then export deploy_tagged_commit_on_pypi="True" ; fi
-    - if [[ ${deploy_tagged_commit_on_pypi} == "True" ]]; then ${CMDPREFIX} ${pip_command} install readme_renderer ; fi           # to check if long_description (Readme) can be rendered, otherwise PyPi will not accept it
-    - if [[ ${deploy_tagged_commit_on_pypi} == "True" ]]; then ${CMDPREFIX} ${pip_command} install --upgrade twine ; fi
-    - if [[ ${deploy_tagged_commit_on_pypi} == "True" ]]; then ${CMDPREFIX} ${pip_command} install wheel ; fi
-    - if [[ ${deploy_tagged_commit_on_pypi} == "True" ]]; then ${CMDPREFIX} ${python_command} setup.py sdist bdist_wheel ; fi
-    - if [[ ${deploy_tagged_commit_on_pypi} == "True" ]]; then ${CMDPREFIX} twine check dist/* ; fi                               # check distribution before uploading it
-    - if [[ ${deploy_tagged_commit_on_pypi} == "True" ]]; then ${CMDPREFIX} twine upload --repository-url https://upload.pypi.org/legacy/ -u bitranox -p ${pypi_password} dist/* ; fi
+    - if [[ ${deploy_on_pypi} == "True" ]] && [[ -n ${TRAVIS_TAG} ]]; then
+          ${CMDPREFIX} ${pip_command} install readme_renderer;
+          ${CMDPREFIX} ${pip_command} install --upgrade twine;
+          ${CMDPREFIX} ${pip_command} install wheel;
+          ${CMDPREFIX} ${python_command} setup.py sdist bdist_wheel;
+          ${CMDPREFIX} twine check dist/*;
+          ${CMDPREFIX} twine upload --repository-url https://upload.pypi.org/legacy/ -u bitranox -p ${pypi_password} dist/*;
+      fi
 
 
 notifications:
