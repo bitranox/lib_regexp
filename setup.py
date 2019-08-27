@@ -57,6 +57,7 @@ setup(name=package_name,
       entry_points=entry_points,
       # minimally needs to run tests - no project requirements here
       tests_require=['typing',
+                     'pathlib',
                      'mypy ; platform_python_implementation != "PyPy" and python_version >= "3.5"',
                      'pytest',
                      'pytest-pep8 ; python_version < "3.5"',
@@ -67,5 +68,7 @@ setup(name=package_name,
       # specify what a project minimally needs to run correctly
       install_requires=['typing'] + required,
       # minimally needs to run the setup script, dependencies needs also to put here for setup.py install test
-      setup_requires=['typing', 'pytest-runner'] + required
+      setup_requires=['typing',
+                      'pathlib',
+                      'pytest-runner'] + required
       )
