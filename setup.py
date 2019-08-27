@@ -50,5 +50,9 @@ setup(name='lib_regexp',
       classifiers=CLASSIFIERS,
       install_requires=[],
       setup_requires=['pytest-runner'],
-      tests_require=['mypy', 'pytest', 'pytest-pep8', 'pytest-codestyle', 'pytest-mypy']
+      tests_require=['mypy ; platform_python_implementation != "PyPy" and python_version >= "3.5"',
+                     'pytest',
+                     'pytest-pep8 ; python_version < "3.5"',
+                     'pytest-codestyle ; python_version >= "3.5"',
+                     'pytest-mypy ; platform_python_implementation != "PyPy" and python_version >= "3.5"']
       )
