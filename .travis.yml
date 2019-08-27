@@ -9,6 +9,10 @@ env:
         - pip_command="pip"
         - python_command="python"
         - WINEDEBUG=fixme-all       # switch off wine fix me messages
+
+        ## to check if commandline is correctly installed (if applies)
+        # - commandline_registration_check="<command> --version"
+
         # pypi_password for rst_include
         # This works for sure - the Travis deploy is somehow buggy.
         # create the secret :
@@ -228,13 +232,16 @@ install:
 
     - ${CMDPREFIX} ${python_command} -m pip install --upgrade pip
     - if [[ ${build_docs} == "True" ]]; then ${lib_bash_banner} "install rst_include (Building Docs)" && ${CMDPREFIX} ${pip_command} install rst_include; fi
+    - ${lib_bash_banner} "install codecov" && ${CMDPREFIX} ${pip_command} install codecov
+    - ${lib_bash_banner} "install pytest-cov" && ${CMDPREFIX} ${pip_command} install pytest-cov
     - if [[ -f ./setup.py ]]; then ${lib_bash_banner} "setup.py found" ; else ${lib_bash_banner_warning} "no setup.py found, nothing to test" ; fi
     - if [[ -f ./setup.py ]]; then ${lib_bash_banner} "Installing Application" && ${CMDPREFIX} ${pip_command} install -e . ; fi
 
 script:
-    - if [[ -f ./setup.py ]]; then ${lib_bash_banner} "running setup.py --install-option test" && ${CMDPREFIX} ${pip_command} install ${github_master} --install-option test ; else ${lib_bash_banner_warning} "no setup.py found, no setup.py --install-option test" ; fi
+    - if [[ -f ./setup.py ]]; then ${lib_bash_banner} "running pip install with --install-option test" && ${CMDPREFIX} ${pip_command} install ${github_master} --install-option test ; else ${lib_bash_banner_warning} "no setup.py found, no pip install with --install-option test" ; fi
     - if [[ -f ./setup.py ]]; then ${lib_bash_banner} "running pytest" && ${CMDPREFIX} ${python_command} -m pytest --cov ; else ${lib_bash_banner_warning} "no setup.py found, skipping pytest" ; fi
     - if [[ ${mypy_static_typecheck} == "True" ]]; then ${lib_bash_banner} "running mypy static typechecks" && ${CMDPREFIX} ${python_command} -m mypy -p ${REPOSITORY_NAME} --strict --no-warn-unused-ignores; else ${lib_bash_banner_warning} "static typechecking disabled on this build" ;  fi
+    - if [[ ! -z ${commandline_registration_check} ]]; then ${lib_bash_banner} "Testing Commandline Registration" && "${commandline_registration_check}" && ${lib_bash_color} clr_bold clr_green "Commandline Registration OK" || ${lib_bash_banner_warning} "Commandline Registration Failed" 1>&2 ; else ${lib_bash_banner_warning} "Commandline Registration Check disabled on this build" ;  fi
     - if [[ -f build_docs.py ]] && [[ "${build_docs}" == "True" ]]; then ${lib_bash_banner} "Building Docs" && ${CMDPREFIX} ${python_command} build_docs.py ${TRAVIS_REPO_SLUG}; else ${lib_bash_banner_warning} "Building Docs disabled on this build" ;  fi
     # only for non tagged builds if doctest is enabled, to check before we deploy on pypi
     - if [[ -f setup.py ]] && [[ -z ${TRAVIS_TAG} ]] && [[ -f build_docs.py ]] && [[ ${build_docs} == "True" ]]; then export check_build="True" ; fi
