@@ -2,6 +2,7 @@
 import codecs
 import os
 import pathlib
+from typing import Dict, List
 
 try:
     from setuptools import setup
@@ -9,8 +10,8 @@ except ImportError:
     from distutils.core import setup
 
 package_name = 'lib_regexp'
-required = list()
-entry_points = dict()
+required: List = list()
+entry_points: Dict = dict()
 
 
 def get_version(dist_directory: str) -> str:
