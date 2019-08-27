@@ -114,6 +114,7 @@ following modules will be automatically installed :
     ## Test Requirements
     ## following Requirements will be installed temporarily for
     ## "setup.py install test" or "pip install <package> --install-option test"
+    typing
     mypy ; platform_python_implementation != "PyPy" and python_version >= "3.5"
     pytest
     pytest-pep8 ; python_version < "3.5"

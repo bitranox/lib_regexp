@@ -8,6 +8,10 @@ try:
 except ImportError:
     from distutils.core import setup
 
+package_name = 'lib_regexp'
+required = list()
+entry_points = dict()
+
 
 def get_version(dist_directory: str) -> str:
     with open(pathlib.Path(__file__).parent / '{dist_directory}/version.txt'.format(dist_directory=dist_directory), mode='r') as version_file:
@@ -25,35 +29,42 @@ CLASSIFIERS = [
     'Topic :: Software Development :: Libraries :: Python Modules'
 ]
 
-description = 'Regexp related'
-
+# noinspection DuplicatedCode
 dirname = os.path.dirname(__file__)
 readme_filename = os.path.join(dirname, 'README.rst')
 
-long_description = description
+long_description = package_name
 if os.path.exists(readme_filename):
+    # noinspection PyBroadException
     try:
         readme_content = codecs.open(readme_filename, encoding='utf-8').read()
         long_description = readme_content
     except Exception:
         pass
 
-setup(name='lib_regexp',
-      version=get_version('lib_regexp'),
-      description=description,
+
+setup(name=package_name,
+      version=get_version(package_name),
+      url='https://github.com/bitranox/{package_name}'.format(package_name=package_name),
+      packages=[package_name],
+      description=package_name,
       long_description=long_description,
       long_description_content_type='text/x-rst',
       author='Robert Nowotny',
       author_email='rnowotny1966@gmail.com',
-      url='https://github.com/bitranox/lib_regexp',
-      packages=['lib_regexp'],
       classifiers=CLASSIFIERS,
-      install_requires=[],
-      setup_requires=['pytest-runner'],
-      # requirements for pip install --install-options: test and setup.py test
-      tests_require=['mypy ; platform_python_implementation != "PyPy" and python_version >= "3.5"',
+      entry_points=entry_points,
+      # minimally needs to run tests - no project requirements here
+      tests_require=['typing',
+                     'mypy ; platform_python_implementation != "PyPy" and python_version >= "3.5"',
                      'pytest',
                      'pytest-pep8 ; python_version < "3.5"',
                      'pytest-codestyle ; python_version >= "3.5"',
-                     'pytest-mypy ; platform_python_implementation != "PyPy" and python_version >= "3.5"']
+                     'pytest-mypy ; platform_python_implementation != "PyPy" and python_version >= "3.5"'
+                     ],
+
+      # specify what a project minimally needs to run correctly
+      install_requires=['typing'] + required,
+      # minimally needs to run the setup script, dependencies needs also to put here for setup.py install test
+      setup_requires=['typing', 'pytest-runner'] + required
       )
