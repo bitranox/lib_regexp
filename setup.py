@@ -10,7 +10,7 @@ except ImportError:
 
 package_name = 'lib_regexp'
 required: List = list()
-required_for_tests = list()
+required_for_tests: List = list()
 entry_points: Dict = dict()
 
 
