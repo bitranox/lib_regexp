@@ -296,8 +296,8 @@ script:
     # Bild Docs
     - if [[ -f build_docs.py ]] && [[ "${build_docs}" == "True" ]]; then
           ${lib_bash_banner} "Building Docs";
-          ${CMDPREFIX} ${python_command} build_docs.py ${TRAVIS_REPO_SLUG} && export build_docs_pass="True" || export build_docs_pass="False";
-          if [[ ${pypi_deploy_would_pass} == "True" ]]; then
+          ${CMDPREFIX} ${python_command} build_docs.py ${TRAVIS_REPO_SLUG};
+          if [[ $? -eq 0 ]]; then
               ${lib_bash_banner} "Building Docs OK";
           else
               ${lib_bash_banner_warning} "Building Docs FAILED";
@@ -314,8 +314,8 @@ script:
           ${CMDPREFIX} ${pip_command} install --upgrade twine > /dev/null 2>&1;
           ${CMDPREFIX} ${pip_command} install wheel > /dev/null 2>&1;
           ${CMDPREFIX} ${python_command} setup.py sdist bdist_wheel || ${lib_bash_banner_warning} "Building Wheels failed" 1>&2;
-          ${CMDPREFIX} twine check dist/* && export pypi_deploy_would_pass="True" || export pypi_deploy_would_pass="False";
-          if [[ ${pypi_deploy_would_pass} == "True" ]]; then
+          ${CMDPREFIX} twine check dist/*;
+          if [[ $? -eq 0 ]]; then
               ${lib_bash_banner} "PyPi Deployment would be OK";
           else
               ${lib_bash_banner_warning} "PyPi Deployment would fail";
@@ -338,6 +338,7 @@ after_success:
     #   global:
     #     -secure: *******
     - if [[ ${deploy_on_pypi} == "True" ]] && [[ -n ${TRAVIS_TAG} ]]; then
+          ${lib_bash_banner} "Deploy on PyPi";
           ${CMDPREFIX} ${pip_command} install readme_renderer;
           ${CMDPREFIX} ${pip_command} install --upgrade twine;
           ${CMDPREFIX} ${pip_command} install wheel;
