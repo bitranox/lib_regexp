@@ -1,4 +1,6 @@
 # see https://coverage.readthedocs.io/en/coverage-4.4.2/config.html
+# no comments on line-endings !
+
 [run]
 source  = lib_regexp
 include = lib_regexp/*
