@@ -259,7 +259,6 @@ script:
           ${lib_bash_banner} "running pytest";
           ${CMDPREFIX} ${python_command} -m pytest --cov;
 
-          ### mypy --strict
           if [[ ${mypy_static_typecheck} == "True" ]]; then
               ${lib_bash_banner} "running mypy static typechecks --strict";
               ${CMDPREFIX} ${python_command} -m mypy -p ${REPOSITORY_NAME} --strict --no-warn-unused-ignores;
