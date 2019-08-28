@@ -78,25 +78,25 @@ class ClassRegexExecute(object):
     def set_s_regexp(self, s_regexp: str) -> None:
         self.my_regexp = re.compile(s_regexp)
 
-    def search(self, s_string: str):
+    def search(self, s_string: str):                # type: ignore
         result = self.my_regexp.search(s_string)
         if result is None:
             return None, None
         else:
             return result.start(), result.group()
 
-    def match(self, s_string: str):
+    def match(self, s_string: str):                # type: ignore
         result = self.my_regexp.match(s_string)
         if result is None:
             return None, None
         else:
             return result.start(), result.group()
 
-    def findall(self, s_string: str):
+    def findall(self, s_string: str):               # type: ignore
         result = self.my_regexp.findall(s_string)
         return result
 
-    def sub(self, replace_with: str, s_input: str, count: int = 0):
+    def sub(self, replace_with: str, s_input: str, count: int = 0):   # type: ignore
         result = self.my_regexp.sub(replace_with, s_input, count)
         return result
 
