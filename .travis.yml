@@ -261,7 +261,13 @@ script:
 
           if [[ ${mypy_static_typecheck} == "True" ]]; then
               ${lib_bash_banner} "running mypy static typechecks";
-              ${CMDPREFIX} ${python_command} -m mypy -p ${REPOSITORY_NAME} --strict --no-warn-unused-ignores --verbose;
+              ${CMDPREFIX} ${python_command} -m mypy -p ${REPOSITORY_NAME} --strict --no-warn-unused-ignores;
+              if [[ $? -eq 0 ]]; then
+                  ${lib_bash_banner} "mypy static typechecks OK";
+              else
+                  ${lib_bash_banner_warning} "mypy static typechecks FAILED";
+                  exit 1;
+              fi
           else
               ${lib_bash_banner_warning} "static typechecking disabled on this build";
           fi
@@ -270,7 +276,7 @@ script:
               ${lib_bash_banner} "Testing Commandline Registration";
               "${commandline_registration_check}" && export commandline_registration_ok="True" || export commandline_registration_ok="False";
               if [[ ${commandline_registration_ok} == "True" ]]; then
-                  ${lib_bash_color} clr_bold clr_green "Commandline Registration OK";
+                  ${lib_bash_banner} "Commandline Registration OK";
               else
                   ${lib_bash_banner_warning} "Commandline Registration FAILED";
                   exit 1;
