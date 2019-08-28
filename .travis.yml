@@ -261,16 +261,7 @@ script:
 
           if [[ ${mypy_static_typecheck} == "True" ]]; then
               ${lib_bash_banner} "running mypy static typechecks";
-              ${CMDPREFIX} ${python_command} -m mypy -p ${REPOSITORY_NAME} --strict --no-warn-unused-ignores \
-              && mypy_static_typecheck_ok="True" \
-              || mypy_static_typecheck_ok="False";
-              if [[ ${mypy_static_typecheck_ok} == "True" ]]; then
-                  ${lib_bash_color} clr_bold clr_green "mypy static typechecks OK";
-              else
-                  ${lib_bash_banner_warning} "mypy static typechecks FAILED";
-                  exit 1;
-              fi
-
+              ${CMDPREFIX} ${python_command} -m mypy -p ${REPOSITORY_NAME} --strict --no-warn-unused-ignores;
           else
               ${lib_bash_banner_warning} "static typechecking disabled on this build";
           fi
