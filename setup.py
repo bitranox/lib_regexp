@@ -10,6 +10,7 @@ except ImportError:
 
 package_name = 'lib_regexp'
 required: List = list()
+required_for_tests = list()
 entry_points: Dict = dict()
 
 
@@ -59,7 +60,7 @@ setup(name=package_name,
                      'pytest-pep8 ; python_version < "3.5"',
                      'pytest-codestyle ; python_version >= "3.5"',
                      'pytest-mypy ; platform_python_implementation != "PyPy" and python_version >= "3.5"'
-                     ],
+                     ] + required_for_tests,
 
       # specify what a project minimally needs to run correctly
       install_requires=['typing', 'pathlib'] + required,
