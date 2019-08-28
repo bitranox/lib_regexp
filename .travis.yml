@@ -259,13 +259,14 @@ script:
           ${lib_bash_banner} "running pytest";
           ${CMDPREFIX} ${python_command} -m pytest --cov;
 
+          ### mypy --strict
           if [[ ${mypy_static_typecheck} == "True" ]]; then
               ${lib_bash_banner} "running mypy static typechecks --strict";
               ${CMDPREFIX} ${python_command} -m mypy -p ${REPOSITORY_NAME} --strict --no-warn-unused-ignores;
               if [[ $? -eq 0 ]]; then
-                  ${lib_bash_banner} "mypy static typechecks OK";
+                  ${lib_bash_banner} "mypy static typechecks --strict OK";
               else
-                  ${lib_bash_banner_warning} "mypy static typechecks FAILED";
+                  ${lib_bash_banner_warning} "mypy static typechecks --strict FAILED";
                   exit 1;
               fi
           else
@@ -274,8 +275,8 @@ script:
 
           if [[ ! -z ${commandline_registration_check} ]]; then
               ${lib_bash_banner} "Testing Commandline Registration";
-              "${commandline_registration_check}" && export commandline_registration_ok="True" || export commandline_registration_ok="False";
-              if [[ ${commandline_registration_ok} == "True" ]]; then
+              "${commandline_registration_check}";
+              if [[ $? -eq 0 ]]; then
                   ${lib_bash_banner} "Commandline Registration OK";
               else
                   ${lib_bash_banner_warning} "Commandline Registration FAILED";
