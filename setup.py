@@ -8,10 +8,10 @@ try:
 except ImportError:
     from distutils.core import setup
 
-package_name = 'lib_regexp'
-required: List = list()
-required_for_tests: List = list()
-entry_points: Dict = dict()
+package_name = 'lib_regexp'     # type: str
+required = list()               # type: List
+required_for_tests = list()     # type: List
+entry_points = dict()           # type: Dict
 
 
 def get_version(dist_directory: str) -> str:
