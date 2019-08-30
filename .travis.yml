@@ -241,8 +241,15 @@ install:
       fi
 
     - if [[ -f ./setup.py ]]; then
-          ${lib_bash_banner} "setup.py found, Installing Application";
+          ${lib_bash_banner} "setup.py found, Installing Application via pip install -e";
           ${CMDPREFIX} ${pip_command} install -e . ;
+              if [[ $? -eq 0 ]]; then
+                  ${lib_bash_banner} "pip install -e - OK";
+              else
+                  ${lib_bash_banner_warning} "pip install -e - FAILED";
+                  exit 1;
+              fi
+
       else
           ${lib_bash_banner_warning} "no setup.py found, skipping Installation";
       fi
