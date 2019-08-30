@@ -3,9 +3,9 @@ import re
 from typing import List, Tuple, Union
 
 try:
-    from re import RegexFlag
-except ImportError:     # for python 3.5
-    re.RegexFlag = int  # type: ignore
+    from re import RegexFlag        # type: ignore      # for python 3.5
+except ImportError:
+    re.RegexFlag = int              # type: ignore
 
 
 class ClassRegexExecute(object):
