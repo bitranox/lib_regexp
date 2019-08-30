@@ -77,7 +77,7 @@ class ClassRegexExecute(object):
 
     """
 
-    def __init__(self, s_regexp: str = '', flags: Union[int, RegexFlag] = 0):
+    def __init__(self, s_regexp: str = '', flags: Union[int, re.RegexFlag] = 0):
         self.my_regexp = re.compile(s_regexp, flags=flags)
 
     def set_s_regexp(self, s_regexp: str) -> None:
