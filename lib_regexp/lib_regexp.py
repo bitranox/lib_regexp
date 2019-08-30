@@ -5,7 +5,7 @@ from typing import List, Tuple, Union
 try:
     from re import RegexFlag
 except ImportError:     # for python 3.5
-    re.RegexFlag = int
+    re.RegexFlag = int  # type: ignore
 
 
 class ClassRegexExecute(object):
