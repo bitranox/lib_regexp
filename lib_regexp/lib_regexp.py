@@ -1,7 +1,11 @@
 # STDLIB
 import re
-from re import RegexFlag
 from typing import List, Tuple, Union
+
+try:
+    from re import RegexFlag
+except ImportError:     # for python 3.5
+    RegexFlag = int
 
 
 class ClassRegexExecute(object):
