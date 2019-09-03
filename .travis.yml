@@ -13,13 +13,13 @@ env:
         ## to check if commandline is correctly installed (if applies)
         # - commandline_registration_check="<command> --version"
 
-        # pypi_password for rst_include
+        # pypi_password for lib_regexp
         # This works for sure - the Travis deploy is somehow buggy.
         # create the secret :
         # cd /<repository>
-        # travis encrypt pypi_password=*****
+        # travis encrypt -r bitranox/lib_regexp pypi_password=*****
         # copy and paste the encrypted password here
-        # - secure: "....."
+        - secure: "MkSjzcbEn8UDv4B/DrZ7mAxQcljC4vWk+NsJhB7v3zDF4B/FdCVo5Fds4fIPN4mxjHTln/Y6FBOEbJgje4pqBh1AMW/EfOsJqvmvfRsBqx4cllNB0e2SAPySw5G8mBLwcGC2y+owSUZyjLb/W5J2bjlS0svfw9yklkEgQsQtZe25boo+IF9dNNI7l8fRM3Re15Hso3AySN/plEBVsnOZVgk8UO4roO9BUQ98vhXfhECKhmRJ5VEwfA/g57NANbiTusH8/4vcAI7RZi0jnLGmNLUauVj7AKWLJ7nvepzIVot1xQzTno0uLZ360IuA88a3j/9g/GBxhqzme4QOYqbD+m4aErwnXSXZxoL4ydGCic7oVrBW0idaFSsh/Hdd5D+XcAyIaVirCmmm7enbeaTFZRLcuBgM/YO7dRAi43Qi4alErKNvZebZVUPcYtXsJTKvXLcBmz5/Ju+nbUEc6gtQqjnn6R3JY3jQeSys62TlV0Y4M4VJS2EVAUWYks/Dsti5+sZqisOhee9z2LqazraQhe4yKZcQRVURrLch4ryV8ZJZZxp3hV3iClSLxSH7XfbOJiyINnZiGeAPL3WZVm7NdYAQremg8i4OPnw0HVR/jeFPzToGh0s+1yxiABJiRYnd0UWS/MqWqwRQKN8JVuRHVBDz4mU9FGUntTtaIXwkWRI="
 
 addons:
     apt:
@@ -60,7 +60,7 @@ matrix:
       before_install:
           - export mypy_static_typecheck="True"
           - export build_docs="True"
-          - export deploy_on_pypi="False"
+          - export deploy_on_pypi="True"
 
     - os: linux
       language: python
