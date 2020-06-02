@@ -82,6 +82,11 @@ class ClassRegexExecute(object):
     >>> my_regexp.search('sadfkjhstrxkljhsadfstry')
     (None, None)
 
+    >>> # test match
+    >>> my_regexp=ClassRegexExecute(r"^.*pa.*$")
+    >>> my_regexp.match('spam')
+    (0, 'spam')
+
     """
 
     def __init__(self, s_regexp: str = '', flags: Union[int, re.RegexFlag] = 0):
