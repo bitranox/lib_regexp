@@ -86,6 +86,8 @@ class ClassRegexExecute(object):
     >>> my_regexp=ClassRegexExecute(r"^.*pa.*$")
     >>> my_regexp.match('spam')
     (0, 'spam')
+    >>> my_regexp.match('wonderful')
+    (None, None)
 
     """
 
