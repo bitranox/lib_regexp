@@ -1,11 +1,18 @@
 # STDLIB
 import re
-from typing import List, Tuple, Union
+from typing import Dict, List, Tuple, Union
 
+# EXT
+from docopt import docopt           # type: ignore
+
+# PROJ
 try:
-    from re import RegexFlag        # type: ignore      # for python 3.5
-except ImportError:
-    re.RegexFlag = int              # type: ignore
+    from .__doc__ import __doc__
+    from . import __init__conf__
+except ImportError:                 # pragma: no cover
+    # imports for doctest
+    from __doc__ import __doc__     # type: ignore  # pragma: no cover
+    import __init__conf__           # type: ignore  # pragma: no cover
 
 
 class ClassRegexExecute(object):
@@ -195,3 +202,48 @@ def t_e_s_t_regexp(s_input: str) -> Tuple[str, List[str]]:
     result = regexp_non_standard_unicode_characters.sub('', s_input)
     found = regexp_non_standard_unicode_characters.findall(s_input)
     return result, found
+
+
+# we might import this module and call main from another program and pass docopt args manually
+def main(docopt_args: Dict[str, Union[bool, str]]) -> None:
+    """
+    >>> docopt_args = dict()
+    >>> docopt_args['--version'] = True
+    >>> docopt_args['--info'] = False
+    >>> main(docopt_args)   # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+    version: ...
+
+
+    >>> docopt_args['--version'] = False
+    >>> docopt_args['--info'] = True
+    >>> main(docopt_args)   # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+    information for ...
+
+    >>> docopt_args['--version'] = False
+    >>> docopt_args['--info'] = False
+    >>> main(docopt_args)
+
+
+    """
+    if docopt_args['--version']:
+        __init__conf__.print_version()
+    elif docopt_args['--info']:
+        __init__conf__.print_info()
+
+
+# entry point via commandline
+def main_commandline() -> None:
+    """
+    >>> main_commandline()  # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
+    Traceback (most recent call last):
+        ...
+    docopt.DocoptExit: ...
+
+    """
+    docopt_args = docopt(__doc__)
+    main(docopt_args)       # pragma: no cover
+
+
+# entry point if main
+if __name__ == '__main__':
+    main_commandline()

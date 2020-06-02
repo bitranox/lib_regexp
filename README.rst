@@ -3,11 +3,11 @@ lib_regexp
 
 |Pypi Status| |license| |maintenance|
 
-|Build Status| |Codecov Status| |Better Code| |code climate| |snyk security|
+|Build Status| |Codecov Status| |Better Code| |code climate| |code climate coverage| |snyk security|
 
 .. |license| image:: https://img.shields.io/github/license/webcomics/pywine.svg
    :target: http://en.wikipedia.org/wiki/MIT_License
-.. |maintenance| image:: https://img.shields.io/maintenance/yes/{last_update_yyyy}.svg
+.. |maintenance| image:: https://img.shields.io/maintenance/yes/2021.svg
 .. |Build Status| image:: https://travis-ci.org/bitranox/lib_regexp.svg?branch=master
    :target: https://travis-ci.org/bitranox/lib_regexp
 .. for the pypi status link note the dashes, not the underscore !
@@ -22,17 +22,25 @@ lib_regexp
 .. |code climate| image:: https://api.codeclimate.com/v1/badges/d854dda63a0f89c04032/maintainability
    :target: https://codeclimate.com/github/bitranox/lib_regexp/maintainability
    :alt: Maintainability
+.. |code climate coverage| image:: https://api.codeclimate.com/v1/badges/d854dda63a0f89c04032/test_coverage
+   :target: https://codeclimate.com/github/bitranox/lib_regexp/test_coverage
+   :alt: Code Coverage
 
 some convenience functions for regexp
 
-supports python 3.7 and possibly other dialects.
+automated tests, Travis Matrix, Documentation, Badges for this Project are managed with `lib_travis_template <https://github
+.com/bitranox/lib_travis_template>`_ - check it out
 
-`100% code coverage <https://codecov.io/gh/bitranox/lib_regexp>`_, mypy static type checking, tested under `Linux, OsX, Windows and Wine <https://travis-ci.org/bitranox/lib_regexp>`_, automatic daily builds  and monitoring
+supports python 3.6-3.8, pypy3 and possibly other dialects.
+
+`100% code coverage <https://codecov.io/gh/bitranox/lib_regexp>`_, mypy static type checking, tested under `Linux, macOS, Windows and Wine <https://travis-ci
+.org/bitranox/lib_regexp>`_, automatic daily builds  and monitoring
 
 ----
 
 - `Installation and Upgrade`_
-- `Basic Usage`_
+- `Usage`_
+- `Usage from Commandline`_
 - `Requirements`_
 - `Acknowledgements`_
 - `Contribute`_
@@ -47,63 +55,119 @@ supports python 3.7 and possibly other dialects.
 Installation and Upgrade
 ------------------------
 
-From source code:
+Before You start, its highly recommended to update pip and setup tools:
+
 
 .. code-block:: bash
 
-    # normal install
-    python setup.py install
-    # test without installing
-    python setup.py test
+    python3 -m pip --upgrade pip
+    python3 -m pip --upgrade setuptools
+    python3 -m pip --upgrade wheel
 
-via pip latest Release:
 
-.. code-block:: bash
-
-    # latest Release from pypi
-    pip install lib_regexp
-
-    # test without installing
-    pip install lib_regexp --install-option test
-
-via pip latest Development Version:
+install latest version with pip (recommended):
 
 .. code-block:: bash
 
     # upgrade all dependencies regardless of version number (PREFERRED)
-    pip install --upgrade git+https://github.com/bitranox/lib_regexp.git --upgrade-strategy eager
-    # normal install
-    pip install --upgrade git+https://github.com/bitranox/lib_regexp.git
-    # test without installing
-    pip install git+https://github.com/bitranox/lib_regexp.git --install-option test
+    python3 -m pip install --upgrade git+https://github.com/bitranox/lib_regexp.git --upgrade-strategy eager
 
-via requirements.txt:
+    # test without installing (can be skipped)
+    python3 -m pip install git+https://github.com/bitranox/lib_regexp.git --install-option test
+
+    # normal install
+    python3 -m pip install --upgrade git+https://github.com/bitranox/lib_regexp.git
+
+
+install latest pypi Release (if there is any):
+
+.. code-block:: bash
+
+    # latest Release from pypi
+    python3 -m pip install --upgrade lib_regexp
+
+    # test without installing (can be skipped)
+    python3 -m pip install lib_regexp --install-option test
+
+    # normal install
+    python3 -m pip install --upgrade lib_regexp
+
+
+
+include it into Your requirements.txt:
 
 .. code-block:: bash
 
     # Insert following line in Your requirements.txt:
-    # for the latest Release:
+    # for the latest Release on pypi (if any):
     lib_regexp
     # for the latest Development Version :
-    git+https://github.com/bitranox/lib_regexp.git
+    lib_regexp @ git+https://github.com/bitranox/lib_regexp.git
 
     # to install and upgrade all modules mentioned in requirements.txt:
-    pip install --upgrade -r /<path>/requirements.txt
+    python3 -m pip install --upgrade -r /<path>/requirements.txt
 
-via python:
 
-.. code-block:: python
+Install from source code:
 
-    # for the latest Release
-    python -m pip install upgrade lib_regexp
+.. code-block:: bash
 
-    # for the latest Development Version
-    python -m pip install upgrade git+https://github.com/bitranox/lib_regexp.git
+    # cd ~
+    $ git clone https://github.com/bitranox/lib_regexp.git
+    $ cd lib_regexp
 
-Basic Usage
+    # test without installing (can be skipped)
+    python3 setup.py test
+
+    # normal install
+    python3 setup.py install
+
+
+via makefile:
+
+if You are on linux, makefiles are a very convenient way to install. Here we can do much more, like installing virtual environment, clean caches and so on.
+This is still in development and not recommended / working at the moment:
+
+.. code-block:: shell
+
+    # from Your shell's homedirectory:
+    $ git clone https://github.com/bitranox/lib_regexp.git
+    $ cd lib_regexp
+
+    # to run the tests:
+    $ make test
+
+    # to install the package
+    $ make install
+
+    # to clean the package
+    $ make clean
+
+    # uninstall the package
+    $ make uninstall
+
+Usage
 -----------
 
-TBA
+.. code-block::
+
+    import the module and check the code - its easy and documented there, including doctest examples.
+    in case of any questions the usage section might be expanded at a later time
+
+Usage from Commandline
+------------------------
+
+.. code-block:: bash
+
+   Usage:
+       lib_regexp (-h | -v | -i)
+
+   Options:
+       -h, --help          show help
+       -v, --version       show version
+       -i, --info          show Info
+
+   this module exposes no other useful functions to the commandline
 
 Requirements
 ------------
@@ -111,19 +175,8 @@ following modules will be automatically installed :
 
 .. code-block:: bash
 
-    ## Test Requirements
-    ## following Requirements will be installed temporarily for
-    ## "setup.py install test" or "pip install <package> --install-option test"
-    typing ; python_version < "3.5"
-    pathlib; python_version < "3.4"
-    mypy ; platform_python_implementation != "PyPy" and python_version >= "3.5"
-    pytest
-    pytest-pep8 ; python_version < "3.5"
-    pytest-pycodestyle ; python_version >= "3.5"
-    pytest-mypy ; platform_python_implementation != "PyPy" and python_version >= "3.5"
-    pytest-runner
-
     ## Project Requirements
+    docopt
 
 Acknowledgements
 ----------------
