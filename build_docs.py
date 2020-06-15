@@ -52,6 +52,12 @@ def main(args: Dict[str, str]) -> None:
     avoid absolute paths since You never know where the program will run.
     """
 
+    if project_conf.badges_with_jupiter:
+        rst_include.rst_str_replace(source='./.docs/README_template.rst', target='', old='{try_in_jupyter}',
+                                    new='.. include:: ./try_in_jupyter.rst', inplace=True)
+    else:
+        rst_include.rst_str_replace(source='./.docs/README_template.rst', target='', old='{try_in_jupyter}', new='', inplace=True)
+
     logger.info('include the include blocks')
     rst_include.rst_inc(source='./.docs/README_template.rst',
                         target='./README.rst')
@@ -63,6 +69,7 @@ def main(args: Dict[str, str]) -> None:
     rst_include.rst_str_replace(source='./README.rst', target='', old='{repository_dashed}', new=repository_dashed, inplace=True)
     rst_include.rst_str_replace(source='./README.rst', target='', old='{last_update_yyyy}', new=str(datetime.date.today().year + 1), inplace=True)
     rst_include.rst_str_replace(source='./README.rst', target='', old='{codeclimate_link_hash}', new=project_conf.codeclimate_link_hash, inplace=True)
+
     logger.info('done')
     sys.exit(0)
 
