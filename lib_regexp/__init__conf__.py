@@ -3,7 +3,7 @@ title = 'some convenience functions for regexp'
 version = '0.1.0'
 url = 'https://github.com/bitranox/lib_regexp'
 author = 'Robert Nowotny'
-author_email = 'rnowotny1966@gmail.com'
+author_email = 'bitranox@gmail.com'
 shell_command = 'lib_regexp'
 
 
@@ -19,4 +19,4 @@ def print_info() -> None:
           Version      : 0.1.0
           url          : https://github.com/bitranox/lib_regexp
           author       : Robert Nowotny
-          author_email : rnowotny1966@gmail.com""")
+          author_email : bitranox@gmail.com""")
