@@ -3,20 +3,18 @@ title = 'some convenience functions for regexp'
 version = '0.1.0'
 url = 'https://github.com/bitranox/lib_regexp'
 author = 'Robert Nowotny'
-author_email = 'bitranox@gmail.com'
+author_email = 'rnowotny1966@gmail.com'
 shell_command = 'lib_regexp'
 
 
-def print_version() -> None:
-    print('version: 0.1.0')
-
-
 def print_info() -> None:
-    print("""information for "lib_regexp":
+    print("""\
 
-          some convenience functions for regexp
+lib_regexp:
 
-          Version      : 0.1.0
-          url          : https://github.com/bitranox/lib_regexp
-          author       : Robert Nowotny
-          author_email : bitranox@gmail.com""")
+    some convenience functions for regexp
+
+    Version : 0.1.0
+    Url     : https://github.com/bitranox/lib_regexp
+    Author  : Robert Nowotny
+    Email   : rnowotny1966@gmail.com""")

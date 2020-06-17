@@ -164,9 +164,9 @@ function test_commandline_interface_venv() {
   # this will fail if rotek lib directory is in the path - keep this as a reminder
   my_banner "test commandline interface on virtual environment"
 
-  registered_shell_command=$(python3 "${project_root_dir}/project_update.py" --get_registered_shell_command)
+  registered_shell_command=$(python3 "${project_root_dir}/project_update.py" get_registered_shell_command)
   clr_green "issuing command : $HOME/venv/bin/${registered_shell_command} -v"
-  if ! "$HOME/venv/bin/${registered_shell_command}" -v; then
+  if ! "$HOME/venv/bin/${registered_shell_command}" --version; then
     my_banner_warning "test commandline interface on virtual environment ERROR"
     beep
     sleep "${sleeptime_on_error}"

@@ -10,7 +10,6 @@ Options:
     -h --help   Show this screen
 """
 
-
 # STDLIB
 import datetime
 import errno
@@ -30,48 +29,46 @@ import rst_include              # type: ignore
 import project_conf
 
 
-def project_specific(repository_slug: str, repository: str, repository_dashed: str) -> None:
-    # PROJECT SPECIFIC
-    logger = logging.getLogger('project_specific')
-    pass
-
-
 def main(args: Dict[str, str]) -> None:
-    logger = logging.getLogger('build_docs')
-    logger.info('create the README.rst')
-    travis_repo_slug = args['<TRAVIS_REPO_SLUG>']
-    repository = travis_repo_slug.split('/')[1]
-    repository_dashed = repository.replace('_', '-')
 
-    project_specific(travis_repo_slug, repository, repository_dashed)
+    rst_template = pathlib.Path('./.docs/README_template.rst')
+    rst_template_tmp = pathlib.Path('./.docs/README_template_tmp.rst')
+    rst_target = pathlib.Path('./README.rst')
 
-    """
-    paths absolute, or relative to the location of the config file
-    the notation for relative files is like on windows or linux - not like in python.
-    so You might use ../../some/directory/some_document.rst to go two levels back.
-    avoid absolute paths since You never know where the program will run.
-    """
+    # noinspection PyBroadException
+    try:
+        lib_log_utils.log_info('create the README.rst')
+        travis_repo_slug = args['<TRAVIS_REPO_SLUG>']
+        repository = travis_repo_slug.split('/')[1]
+        repository_dashed = repository.replace('_', '-')
 
-    if project_conf.badges_with_jupiter:
-        rst_include.rst_str_replace(source='./.docs/README_template.rst', target='', old='{try_in_jupyter}',
-                                    new='.. include:: ./try_in_jupyter.rst', inplace=True)
-    else:
-        rst_include.rst_str_replace(source='./.docs/README_template.rst', target='', old='{try_in_jupyter}', new='', inplace=True)
+        """
+        paths absolute, or relative to the location of the config file
+        the notation for relative files is like on windows or linux - not like in python.
+        so You might use ../../some/directory/some_document.rst to go two levels back.
+        avoid absolute paths since You never know where the program will run.
+        """
 
-    logger.info('include the include blocks')
-    rst_include.rst_inc(source='./.docs/README_template.rst',
-                        target='./README.rst')
+        if project_conf.badges_with_jupiter:
+            rst_include.rst_str_replace(source=rst_template, target=rst_template_tmp, old='{try_in_jupyter}', new='.. include:: ./try_in_jupyter.rst')
+        else:
+            rst_include.rst_str_replace(source=rst_template, target=rst_template_tmp, old='{try_in_jupyter}', new='')
 
-    logger.info('replace repository related strings')
-    rst_include.rst_str_replace(source='./README.rst', target='', old='{repository_slug}', new=travis_repo_slug, inplace=True)
-    rst_include.rst_str_replace(source='./README.rst', target='', old='{repository}', new=repository, inplace=True)
-    rst_include.rst_str_replace(source='./README.rst', target='', old='{double_underline_repository}', new='=' * len(repository), inplace=True)
-    rst_include.rst_str_replace(source='./README.rst', target='', old='{repository_dashed}', new=repository_dashed, inplace=True)
-    rst_include.rst_str_replace(source='./README.rst', target='', old='{last_update_yyyy}', new=str(datetime.date.today().year + 1), inplace=True)
-    rst_include.rst_str_replace(source='./README.rst', target='', old='{codeclimate_link_hash}', new=project_conf.codeclimate_link_hash, inplace=True)
+        lib_log_utils.log_info('include the include blocks')
+        rst_include.rst_inc(source=rst_template_tmp, target=rst_target)
 
-    logger.info('done')
-    sys.exit(0)
+        lib_log_utils.log_info('replace repository related strings')
+        rst_include.rst_str_replace(source=rst_target, target='', old='{repository_slug}', new=travis_repo_slug, inplace=True)
+        rst_include.rst_str_replace(source=rst_target, target='', old='{repository}', new=repository, inplace=True)
+        rst_include.rst_str_replace(source=rst_target, target='', old='{double_underline_repository}', new='=' * len(repository), inplace=True)
+        rst_include.rst_str_replace(source=rst_target, target='', old='{repository_dashed}', new=repository_dashed, inplace=True)
+        rst_include.rst_str_replace(source=rst_target, target='', old='{last_update_yyyy}', new=str(datetime.date.today().year + 1), inplace=True)
+        rst_include.rst_str_replace(source=rst_target, target='', old='{codeclimate_link_hash}', new=project_conf.codeclimate_link_hash, inplace=True)
+
+        lib_log_utils.log_info('done')
+        sys.exit(0)
+    finally:
+        rst_template_tmp.unlink(missing_ok=True)
 
 
 if __name__ == '__main__':
@@ -81,7 +78,6 @@ if __name__ == '__main__':
         sys.exit(1)
 
     lib_log_utils.add_stream_handler()          # type: ignore      # in order to pass mypy in the lib_log_utils package
-    main_logger = logging.getLogger('main')
     try:
         _args = docopt(__doc__)
         main(_args)

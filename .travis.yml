@@ -128,8 +128,8 @@ script:
     - if ${COMMAND}; then ${lib_bash_banner} "'${COMMAND}' - OK"; else ${lib_bash_banner_warning} "'${COMMAND}' - FAILED" && exit 1; fi
 
     # commandline registration check
-    - CMDLINE_COMMAND=$(${CMDPREFIX} ${python_command} ./project_update.py --get_registered_shell_command)
-    - COMMAND="${CMDPREFIX} ${CMDLINE_COMMAND} -v"
+    - CMDLINE_COMMAND=$(${CMDPREFIX} ${python_command} ./project_update.py get_registered_shell_command)
+    - COMMAND="${CMDPREFIX} ${CMDLINE_COMMAND} --version"
     - ${lib_bash_banner} "running '${COMMAND}' (check commandline registration)";
     - if ${COMMAND}; then ${lib_bash_banner} "'${COMMAND}' - OK"; else ${lib_bash_banner_warning} "'${COMMAND}' - FAILED" && exit 1; fi
 
@@ -179,7 +179,7 @@ script:
 after_success:
     - ${CMDPREFIX} coverage report
     - ${CMDPREFIX} codecov
-    # codeclimate coverage upload
+    # codeclimate coverage upload # TODO: Version for Darwin and skip for Windows
     - curl -L https://codeclimate.com/downloads/test-reporter/test-reporter-latest-linux-amd64 > ./cc-test-reporter
     - chmod +x ./cc-test-reporter
     - ./cc-test-reporter after-build --exit-code $TRAVIS_TEST_RESULT

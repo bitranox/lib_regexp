@@ -12,10 +12,13 @@ import shutil
 from typing import Dict, List, Union
 
 # EXT
-from docopt import docopt   # type: ignore
+import click
 
 # OWN
 import project_conf
+
+# CONSTANTS
+CLICK_CONTEXT_SETTINGS = dict(help_option_names=['-h', '--help'])
 
 
 def format_commandline_help_file() -> None:
@@ -86,12 +89,6 @@ def create_init_config_file() -> None:
         path_sourcefile = path_source_dir / 'main.py'
         shutil.copy(str(path_sourcefile), str(path_targetfile))
 
-    # copy __doc__.py if not there from template
-    path_targetfile = path_target_dir / '__doc__.py'
-    if not path_targetfile.is_file():
-        path_sourcefile = path_source_dir / '__doc__.py'
-        shutil.copy(str(path_sourcefile), str(path_targetfile))
-
 
 def is_in_own_project_folder() -> bool:
     if pathlib.Path(__file__).parts[-2] == 'lib_travis_template':
@@ -114,7 +111,7 @@ def is_ok_to_copy(path_source_file: pathlib.Path) -> bool:
     """ its ok when a file and not in the list """
     files_not_to_copy = ['requirements.txt', 'project_conf.py', '.travis.yml', 'README.rst',
                          'CHANGES.rst', 'description.rst', 'usage.rst', 'installation.rst', 'acknowledgment.rst',
-                         'badges_project.rst', 'badges_with_jupyter.rst', 'badges_without_jupyter.rst', '__doc__.py',
+                         'badges_project.rst', 'badges_with_jupyter.rst', 'badges_without_jupyter.rst',
                          'index.rst', 'index_jupyter.rst', 'try_in_jupyter.rst']
     if path_source_file.is_file():
         if path_source_file.name in files_not_to_copy:
@@ -266,40 +263,37 @@ def create_travis_file() -> None:
         (path_base_dir / '.travis_template_wine_addon.yml').unlink()
 
 
-def main(docopt_args: Dict[str, Union[bool, str]]) -> None:
+def main() -> None:
+    """ create and update travis python projects """
+    create_init_config_file()
 
-    if docopt_args['--get_registered_shell_command']:
-        print(project_conf.shell_command)
-    else:
-        create_init_config_file()
+    # copy files from template folder to current project
+    if not is_in_own_project_folder():  # we dont want to copy if we run this in the template project itself
+        copy_project_files()
+        copy_template_files()
 
-        # copy files from template folder to current project
-        if not is_in_own_project_folder():  # we dont want to copy if we run this in the template project itself
-            copy_project_files()
-            copy_template_files()
+    # create travis file
+    create_travis_file()
 
-        # create travis file
-        create_travis_file()
-
-        # create readme.rst
-        create_commandline_help_file()
-        import build_docs
-        build_docs_args = dict()
-        build_docs_args['<TRAVIS_REPO_SLUG>'] = '{}/{}'.format(project_conf.github_account, project_conf.package_name)
-        build_docs.main(build_docs_args)
+    # create readme.rst
+    create_commandline_help_file()
+    import build_docs
+    build_docs_args = dict()
+    build_docs_args['<TRAVIS_REPO_SLUG>'] = '{}/{}'.format(project_conf.github_account, project_conf.package_name)
+    build_docs.main(build_docs_args)
 
 
-# entry point via commandline
-def main_commandline() -> None:
-    """
-    >>> main_commandline()  # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
-    Traceback (most recent call last):
-        ...
-    docopt.DocoptExit: ...
+@click.group(context_settings=CLICK_CONTEXT_SETTINGS, invoke_without_command=True)
+@click.pass_context
+def main_commandline(click_context) -> None:
+    if click_context.invoked_subcommand is None:
+        main()
 
-    """
-    docopt_args = docopt(__doc__)
-    main(docopt_args)       # pragma: no cover
+
+@main_commandline.command('get_registered_shell_command')
+def get_registered_shell_command():
+    """ returns the shell command which will be registered with the shell"""
+    print(project_conf.shell_command)
 
 
 # entry point if main
