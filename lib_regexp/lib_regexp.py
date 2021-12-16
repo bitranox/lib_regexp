@@ -1,9 +1,7 @@
 # STDLIB
 import re
-from typing import Dict, List, Tuple, Union
-
-# EXT
-from docopt import docopt           # type: ignore
+import sys
+from typing import List, Tuple, Union
 
 # PROJ
 try:
@@ -211,46 +209,6 @@ def t_e_s_t_regexp(s_input: str) -> Tuple[str, List[str]]:
     return result, found
 
 
-# we might import this module and call main from another program and pass docopt args manually
-def main(docopt_args: Dict[str, Union[bool, str]]) -> None:
-    """
-    >>> docopt_args = dict()
-    >>> docopt_args['--version'] = True
-    >>> docopt_args['--info'] = False
-    >>> main(docopt_args)   # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
-    version: ...
-
-
-    >>> docopt_args['--version'] = False
-    >>> docopt_args['--info'] = True
-    >>> main(docopt_args)   # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
-    information for ...
-
-    >>> docopt_args['--version'] = False
-    >>> docopt_args['--info'] = False
-    >>> main(docopt_args)
-
-
-    """
-    if docopt_args['--version']:
-        __init__conf__.print_version()
-    elif docopt_args['--info']:
-        __init__conf__.print_info()
-
-
-# entry point via commandline
-def main_commandline() -> None:
-    """
-    >>> main_commandline()  # doctest: +ELLIPSIS +NORMALIZE_WHITESPACE
-    Traceback (most recent call last):
-        ...
-    docopt.DocoptExit: ...
-
-    """
-    docopt_args = docopt(__doc__)
-    main(docopt_args)       # pragma: no cover
-
-
 # entry point if main
 if __name__ == '__main__':
-    main_commandline()
+    print(b'this is a library only, the executable is named "lib_regexp_cli.py"', file=sys.stderr)
